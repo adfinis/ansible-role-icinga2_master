@@ -1,1 +1,3 @@
 ---
+
+# - name: import icinga2 mysql schema
