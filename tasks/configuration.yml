@@ -1,3 +1,71 @@
 ---
+# Global Icinga2 configuration
+- name: ensure the global-templates directory is present
+  file:
+    dest: /etc/icinga2/zones.d/global-templates
+    owner: icinga
+    group: icinga
+    mode: 0755
+    state: directory
 
-# - name: import icinga2 mysql schema
+- name: create global service checks
+  template:
+    src: templates/etc/icinga2/zones.d/global-templates/services.conf.j2
+    dest: /etc/icinga2/zones.d/global-templates/services.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+
+- name: create global templates
+  template:
+    src: templates/etc/icinga2/zones.d/global-templates/templates.conf.j2
+    dest: /etc/icinga2/zones.d/global-templates/templates.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+
+- name: create global commands
+  template:
+    src: templates/etc/icinga2/zones.d/global-templates/commands.conf.j2
+    dest: /etc/icinga2/zones.d/global-templates/commands.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+
+# # Host Icinga2 configuration
+# - name: remove old configuration in conf.d
+#   file:
+#     path: /etc/icinga2/conf.d
+#     state: absent
+#
+# - name: recreate host configuration directory conf.d
+#   file:
+#     path: /etc/icinga2/conf.d
+#     owner: icinga
+#     group: icinga
+#     mode: 0755
+#     state: directory
+
+- name: create zone configuration directory for each host
+  file:
+    path: "/etc/icinga2/zones.d/{{ hostvars[item].inventory_hostname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ groups['monitoring'] }}"
+  notify: reload icinga2
+
+- name: create zone file for each zone
+  template:
+    src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
+    dest: "/etc/icinga2/zones.d/{{ hostvars[item].inventory_hostname }}/zone.conf"
+  loop: "{{ groups['monitoring'] }}"
+  notify: reload icinga2
+
+- name: Create host file per host
+  template:
+    src: templates/etc/icinga2/zones.d/generic_host.conf.j2
+    dest: "/etc/icinga2/zones.d/{{ hostvars[item].inventory_hostname }}/{{ hostvars[item].inventory_hostname }}.conf"
+  loop: "{{ groups['monitoring'] }}"
+  notify: reload icinga2
