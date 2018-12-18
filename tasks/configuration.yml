@@ -136,7 +136,7 @@
   loop: "{{ groups['monitoring-client'] }}"
   notify: icinga2_master reload icinga2
 
-- name: Create host file per host
+- name: create host file per host
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
     dest: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf"
