@@ -1,6 +1,7 @@
 ---
 
-dependencies: []
+dependencies:
+  - name: "adfinis-sygroup.icinga2_agent"
 
 galaxy_info:
   role_name: 'icinga2_master'
@@ -15,3 +16,5 @@ galaxy_info:
         - 7
   galaxy_tags:
     - "icinga2"
+    - "monitoring"
+    - "master"
