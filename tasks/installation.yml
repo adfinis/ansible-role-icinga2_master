@@ -1,7 +1,0 @@
----
-
-- name: ensure that icinga2 is started and enabled on boot
-  service:
-    name: icinga2.service
-    state: started
-    enabled: yes

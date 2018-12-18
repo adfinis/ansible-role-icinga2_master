@@ -1,8 +1,7 @@
-# {{ ansible_managed }}
-
-object Endpoint "{{ hostvars[item].inventory_hostname }}" {
-  host = name
-}
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
 
 object Host "{{ hostvars[item].inventory_hostname }}" {
   import "generic-host"
@@ -16,8 +15,9 @@ object Host "{{ hostvars[item].inventory_hostname }}" {
   vars.client_endpoint = name
 
   {% if hostvars[item].icinga2_vars is defined %}
-    {% for v in hostvars[item].icinga2_vars %}
+    {%- for v in hostvars[item].icinga2_vars -%}
   vars.{{ v.name }} = "{{ v.value }}"
-    {% endfor %}
-  {% endif %}
+    {%- endfor %}
+  {%- endif %}
+
 }
