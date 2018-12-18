@@ -11,7 +11,8 @@ ROLE ICINGA2_MASTER
 .. image:: https://img.shields.io/badge/galaxy-adfinis--sygroup.icinga2_master-660198.svg?style=flat-square
   :target: https://galaxy.ansible.com/adfinis-sygroup/icinga2_master
 
-A brief description of the role goes here.
+This role configures icinga2 to act as a master.
+Furthermore, this role takes care of the configuration for all clients.
 
 
 Requirements
@@ -35,21 +36,19 @@ should be mentioned here as well.
 Dependencies
 =============
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables
-that are used from other roles.
-
+This role depends on the role `adfinis-sygroup.icinga2_agent 
+<https://galaxy.ansible.com/adfinis-sygroup/icinga2_agent>`_, which installs
+the icinga2 binary.
 
 Example Playbook
 =================
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
 
 .. code-block:: yaml
 
-  - hosts: servers
+  - hosts: monitoring-master
     roles:
+       - { role: adfinis-sygroup.icinga2_agent }
        - { role: adfinis-sygroup.icinga2_master }
 
 
