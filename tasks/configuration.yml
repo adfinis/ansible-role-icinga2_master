@@ -128,6 +128,7 @@
   loop: "{{ groups['monitoring-client'] }}"
   notify: icinga2_master reload icinga2
 
+# ansible-lint is skipped because we cannot shorten the path easily
 - name: create zone file for each zone
   template:
     src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
@@ -141,7 +142,10 @@
     selevel: s0
   loop: "{{ groups['monitoring-client'] }}"
   notify: icinga2_master reload icinga2
+  tags:
+    - skip_ansible_lint
 
+# ansible-lint is skipped because we cannot shorten the path easily
 - name: create host file per host
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
@@ -155,6 +159,8 @@
     selevel: s0
   loop: "{{ groups['monitoring-client'] }}"
   notify: icinga2_master reload icinga2
+  tags:
+    - skip_ansible_lint
 
 - name: ensure that icinga2 is started and enabled on boot
   service:
