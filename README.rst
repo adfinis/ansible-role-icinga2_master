@@ -26,11 +26,19 @@ may be a good idea to mention in this section that the boto package is required.
 Role Variables
 ===============
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.)
-should be mentioned here as well.
+.. code-block:: yaml
+
+  # The icinga2 master zone
+  icinga2_master_master_zone: monitoring-master
+
+  # A list of all icinga2 api users
+  icinga2_master_api_users: []
+  #  - username: root
+  #    password: "passw0rd"
+  #    permissions: "*"
+  #  - username: token-generator
+  #    password: "passw0rd"
+  #    permissions: "actions/generate-ticket"
 
 
 Dependencies
