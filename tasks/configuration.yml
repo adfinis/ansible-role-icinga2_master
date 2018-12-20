@@ -18,9 +18,9 @@
     name: '{{ item }}'
     state: absent
   with_items:
-    - "/etc/icinga2/conf.d/commands.conf"
-    - "/etc/icinga2/conf.d/services.conf"
-    - "/etc/icinga2/conf.d/templates.conf"
+    - /etc/icinga2/conf.d/commands.conf
+    - /etc/icinga2/conf.d/services.conf
+    - /etc/icinga2/conf.d/templates.conf
 
 - name: add our own host configuration
   template:
@@ -97,9 +97,9 @@
     setype: icinga2_etc_t
     selevel: s0
   with_items:
-    - "services.conf"
-    - "templates.conf"
-    - "commands.conf"
+    - services.conf
+    - templates.conf
+    - commands.conf
 
 - name: create global zones configuration
   template:
@@ -116,7 +116,7 @@
 
 - name: create zone configuration directory for each host
   file:
-    path: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}"
+    path: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}'
     state: directory
     owner: icinga
     group: icinga
@@ -125,13 +125,13 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  loop: "{{ groups['monitoring-client'] }}"
+  loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
 
 - name: create zone file for each zone
   template:
     src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
-    dest: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf"
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf'
     owner: icinga
     group: icinga
     mode: 0640
@@ -139,13 +139,13 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  loop: "{{ groups['monitoring-client'] }}"
+  loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
 
 - name: create host file per host
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
-    dest: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf"
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
     owner: icinga
     group: icinga
     mode: 0640
@@ -153,7 +153,7 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  loop: "{{ groups['monitoring-client'] }}"
+  loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
 
 - name: ensure that icinga2 is started and enabled on boot
