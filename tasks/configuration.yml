@@ -91,7 +91,7 @@
     dest: /etc/icinga2/zones.d/global-templates/{{ item }}
     owner: icinga
     group: icinga
-    mode: 0644
+    mode: 0640
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -107,7 +107,7 @@
     dest: /etc/icinga2/zones.conf
     owner: icinga
     group: icinga
-    mode: 0644
+    mode: 0640
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -134,7 +134,7 @@
     dest: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf"
     owner: icinga
     group: icinga
-    mode: 0644
+    mode: 0640
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -148,7 +148,7 @@
     dest: "/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf"
     owner: icinga
     group: icinga
-    mode: 0644
+    mode: 0640
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
