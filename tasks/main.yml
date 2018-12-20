@@ -7,7 +7,6 @@
     - '{{ ansible_os_family }}.yml'
   tags:
     - 'role::icinga2_master'
-    - 'role::icinga2_master:install'
     - 'role::icinga2_master:config'
 
 - import_tasks: configuration.yml
