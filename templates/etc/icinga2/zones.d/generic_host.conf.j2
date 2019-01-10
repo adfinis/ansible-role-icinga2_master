@@ -1,0 +1,23 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+object Host "{{ hostvars[item].inventory_hostname }}" {
+  import "generic-host"
+
+  {% if hostvars[item].inventory_hostname == "icinga-master" -%}
+  address = "127.0.0.1"
+  {% else -%}
+  address = "{{ hostvars[item].inventory_hostname }}"
+  {% endif %}
+
+  vars.client_endpoint = name
+
+  {% if hostvars[item].icinga2_vars is defined %}
+    {%- for v in hostvars[item].icinga2_vars -%}
+  vars.{{ v.name }} = "{{ v.value }}"
+    {%- endfor %}
+  {%- endif %}
+
+}

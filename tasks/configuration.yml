@@ -1,1 +1,163 @@
 ---
+
+- name: install icinga2 constants configuration
+  template:
+    src: templates/etc/icinga2/constants.conf.j2
+    dest: /etc/icinga2/constants.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  notify: icinga2_master reload icinga2
+
+- name: remove files from conf.d which are already defined in global-templates
+  file:
+    name: '{{ item }}'
+    state: absent
+  with_items:
+    - /etc/icinga2/conf.d/commands.conf
+    - /etc/icinga2/conf.d/services.conf
+    - /etc/icinga2/conf.d/templates.conf
+
+- name: add our own host configuration
+  template:
+    src: templates/etc/icinga2/conf.d/hosts.conf.j2
+    dest: /etc/icinga2/conf.d/hosts.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  notify: icinga2_master reload icinga2
+
+- name: install icinga2 api-users configuration
+  template:
+    src: templates/etc/icinga2/conf.d/api-users.conf.j2
+    dest: /etc/icinga2/conf.d/api-users.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  notify: icinga2_master reload icinga2
+
+- name: execute icinga2 api setup command
+  command: icinga2 api setup
+  args:
+    creates: /var/lib/icinga2/ca/ca.crt
+  notify: icinga2_master reload icinga2
+
+- name: configure icinga2 api feature
+  template:
+    src: templates/etc/icinga2/features-available/api.conf.j2
+    dest: /etc/icinga2/features-available/api.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+
+- name: enable icinga2 api feature
+  file:
+    src: /etc/icinga2/features-available/api.conf
+    dest: /etc/icinga2/features-enabled/api.conf
+    state: link
+
+# Global Icinga2 configuration
+- name: ensure the global-templates directory is present
+  file:
+    dest: /etc/icinga2/zones.d/global-templates
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+    state: directory
+
+- name: create global template configurations
+  template:
+    src: templates/etc/icinga2/zones.d/global-templates/{{ item }}.j2
+    dest: /etc/icinga2/zones.d/global-templates/{{ item }}
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  with_items:
+    - services.conf
+    - templates.conf
+    - commands.conf
+
+- name: create global zones configuration
+  template:
+    src: templates/etc/icinga2/zones.conf.j2
+    dest: /etc/icinga2/zones.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  notify: icinga2_master reload icinga2
+
+- name: create zone configuration directory for each host
+  file:
+    path: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}'
+    state: directory
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  loop: '{{ groups["monitoring-client"] }}'
+  notify: icinga2_master reload icinga2
+
+- name: create zone file for each zone
+  template:
+    src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf'
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  loop: '{{ groups["monitoring-client"] }}'
+  notify: icinga2_master reload icinga2
+
+- name: create host file per host
+  template:
+    src: templates/etc/icinga2/zones.d/generic_host.conf.j2
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  loop: '{{ groups["monitoring-client"] }}'
+  notify: icinga2_master reload icinga2
+
+- name: ensure that icinga2 is started and enabled on boot
+  service:
+    name: icinga2
+    state: started
+    enabled: yes

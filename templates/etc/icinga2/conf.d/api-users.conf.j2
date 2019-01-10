@@ -1,0 +1,11 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+{% for user in icinga2_master_api_users %}
+object ApiUser "{{ user.username }}" {
+  password = "{{ user.password }}"
+  permissions = [ "{{ user.permissions }}" ]
+}
+{% endfor %}

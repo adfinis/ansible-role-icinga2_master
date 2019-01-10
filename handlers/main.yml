@@ -1,1 +1,6 @@
 ---
+
+- name: icinga2_master reload icinga2
+  service:
+    name: icinga2
+    state: reloaded
