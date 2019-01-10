@@ -1,0 +1,17 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+object Endpoint "{{ hostvars[item].inventory_hostname }}" {
+  host = name
+}
+
+object Zone "{{ hostvars[item].inventory_hostname }}" {
+  endpoints = [ "{{ hostvars[item].inventory_hostname }}" ]
+
+  {% if hostvars[item].icinga2_client_parent_zone -%}
+  parent = "{{ hostvars[item].icinga2_client_parent_zone }}"
+  {%- endif %}
+
+}
