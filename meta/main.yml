@@ -1,7 +1,7 @@
 ---
 
 dependencies:
-  - name: "adfinis-sygroup.icinga2_agent"
+  - name: 'adfinis-sygroup.icinga2_agent'
 
 galaxy_info:
   role_name: 'icinga2_master'
@@ -15,6 +15,6 @@ galaxy_info:
       versions:
         - 7
   galaxy_tags:
-    - "icinga2"
-    - "monitoring"
-    - "master"
+    - 'icinga2'
+    - 'monitoring'
+    - 'master'
