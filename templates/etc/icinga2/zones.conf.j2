@@ -12,11 +12,16 @@
  * have `accept_config` enabled in the `api` feature.
  */
 
-object Zone "{{ icinga2_master_master_zone }}" {
-  endpoints = [ "{{ inventory_hostname }}" ]
+{# each parent host gets an endpoint definition#}
+{% for item in icinga2_client_monitoring_parents %}
+object Endpoint "{{ item }}" {
+  host = "{{ item }}"
 }
+{% endfor %}
 
-object Endpoint "{{ inventory_hostname }}" {
+{# Each endpoint is configured in a zone #}
+object Zone "{{ icinga2_client_parent_zone }}" {
+  endpoints = [ "{{ icinga2_client_monitoring_parents |  join('", "') }}" ]
 }
 
 object Zone "global-templates" {
