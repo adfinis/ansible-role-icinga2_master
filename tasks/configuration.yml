@@ -24,8 +24,8 @@
 
 - name: add our own host configuration
   template:
-    src: templates/etc/icinga2/conf.d/hosts.conf.j2
-    dest: /etc/icinga2/conf.d/hosts.conf
+    src: templates/etc/icinga2/zones.d/generic_host.conf.j2
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
     owner: icinga
     group: icinga
     mode: 0640
@@ -33,7 +33,9 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
+  loop: '{{ groups["monitoring-master"] }}'
   notify: icinga2_master reload icinga2
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: install icinga2 api-users configuration
   template:
@@ -84,6 +86,7 @@
     setype: icinga2_etc_t
     selevel: s0
     state: directory
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: create global template configurations
   template:
@@ -100,6 +103,7 @@
     - services.conf
     - templates.conf
     - commands.conf
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: create global zones configuration
   template:
@@ -127,6 +131,7 @@
     selevel: s0
   loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: create zone file for each zone
   template:
@@ -141,6 +146,7 @@
     selevel: s0
   loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: create host file per host
   template:
@@ -155,6 +161,7 @@
     selevel: s0
   loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: ensure that icinga2 is started and enabled on boot
   service:
