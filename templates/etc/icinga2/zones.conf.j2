@@ -19,7 +19,7 @@ object Endpoint "{{ item }}" {
 }
 {% endfor %}
 
-{# Each endpoint is configured in a zone #}
+{# each endpoint is configured in a zone #}
 object Zone "{{ icinga2_master_client_parent_zone }}" {
   endpoints = [ "{{ icinga2_client_monitoring_parents |  join('", "') }}" ]
 }
