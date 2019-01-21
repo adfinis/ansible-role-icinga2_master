@@ -25,7 +25,7 @@
 - name: add our own host configuration
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
     owner: icinga
     group: icinga
     mode: 0640
@@ -120,7 +120,7 @@
 
 - name: create zone configuration directory for each host
   file:
-    path: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}'
+    path: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}'
     state: directory
     owner: icinga
     group: icinga
@@ -136,7 +136,7 @@
 - name: create zone file for each zone
   template:
     src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf'
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf'
     owner: icinga
     group: icinga
     mode: 0640
@@ -151,7 +151,7 @@
 - name: create host file per host
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
     owner: icinga
     group: icinga
     mode: 0640
