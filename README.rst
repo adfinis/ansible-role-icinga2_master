@@ -5,8 +5,8 @@ ROLE ICINGA2_MASTER
 .. image:: https://img.shields.io/github/license/adfinis-sygroup/ansible-role-icinga2_master.svg?style=flat-square
   :target: https://github.com/adfinis-sygroup/ansible-role-icinga2_master/blob/master/LICENSE
 
-.. image:: https://img.shields.io/travis/adfinis-sygroup/ansible-role-icinga2_master.svg?style=flat-square
-  :target: https://travis-ci.org/adfinis-sygroup/ansible-role-icinga2_master
+.. image:: https://img.shields.io/travis/com/adfinis-sygroup/ansible-role-icinga2_master.svg?style=flat-square
+  :target: https://travis-ci.com/adfinis-sygroup/ansible-role-icinga2_master
 
 .. image:: https://img.shields.io/badge/galaxy-adfinis--sygroup.icinga2_master-660198.svg?style=flat-square
   :target: https://galaxy.ansible.com/adfinis-sygroup/icinga2_master
