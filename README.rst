@@ -31,7 +31,7 @@ Role Variables
   # The icinga2 master zone
   icinga2_master_master_zone: monitoring-master
 
-  :# A list of all icinga2 api users
+  # A list of all icinga2 api users
   icinga2_master_api_users: []
   #  - username: root
   #    password: 'passw0rd'
@@ -40,7 +40,7 @@ Role Variables
   #    password: 'passw0rd'
   #    permissions: 'actions/generate-ticket'
 
-az
+
 Dependencies
 =============
 
