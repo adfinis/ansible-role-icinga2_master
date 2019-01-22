@@ -72,6 +72,26 @@
     dest: /etc/icinga2/features-enabled/api.conf
     state: link
 
+- name: configure icinga2 graphite feature
+  template:
+    src: templates/etc/icinga2/features-available/graphite.conf.j2
+    dest: /etc/icinga2/features-available/graphite.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  when: icinga2_master_graphite_enabled
+
+- name: enable icinga2 graphite feature
+  file:
+    src: /etc/icinga2/features-available/graphite.conf
+    dest: /etc/icinga2/features-enabled/graphite.conf
+    state: link
+  when: icinga2_master_graphite_enabled
+
 # Global Icinga2 configuration
 - name: ensure the global-templates directory is present
   file:
