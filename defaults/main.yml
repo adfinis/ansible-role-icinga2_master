@@ -14,3 +14,12 @@ icinga2_master_api_users: []
 #  - username: token-generator
 #    password: 'passw0rd'
 #    permissions: 'actions/generate-ticket'
+
+# Enable the graphite writer feature
+icinga2_master_graphite_enabled: False
+
+# The Host graphite is running on
+icinga2_master_graphite_host: 127.0.0.1
+
+# The port graphite is listening on
+icinga2_master_graphite_port: 2003
