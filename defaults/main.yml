@@ -3,14 +3,17 @@
 # The icinga2 master zone
 icinga2_master_master_zone: monitoring-master
 
+# The parent zone of a client. Needed if a client is behind a satellite
+icinga2_master_client_parent_zone: {{ icinga2_master_master_zone }}
+
 # A list of all icinga2 api users
 icinga2_master_api_users: []
 #  - username: root
-#    password: "passw0rd"
-#    permissions: "*"
+#    password: 'passw0rd'
+#    permissions: '*'
 #  - username: token-generator
-#    password: "passw0rd"
-#    permissions: "actions/generate-ticket"
+#    password: 'passw0rd'
+#    permissions: 'actions/generate-ticket'
 
 # Enable the graphite writer feature
 icinga2_master_graphite_enabled: False
