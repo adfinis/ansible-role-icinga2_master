@@ -5,8 +5,8 @@
     name: '{{ icinga2_master_ido_packages }}'
     state: present
   when: icinga2_master_ido_enabled
-  register: icinga2_master_packages_installed
-  until: icinga2_master_packages_installed is success
+  register: icinga2_master_register_packages_installed
+  until: icinga2_master_register_packages_installed is success
   retries: 10
   delay: 2
 
