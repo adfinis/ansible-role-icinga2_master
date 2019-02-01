@@ -1,0 +1,8 @@
+---
+
+- name: install packages
+  package:
+    name: '{{ icinga2_master_ido_packages }}'
+    state: present
+  when: icinga2_master_ido_enabled
+
