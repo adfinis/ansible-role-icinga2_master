@@ -3,9 +3,9 @@
 - name: check if icinga2 ido table in mysql exists
   shell: >
     mysql
-    -u {{ icinga2_master_icinga2_database_user }} 
-    -p{{ icinga2_master_icinga2_database_pass }}
-    -h {{ icinga2_master_icinga2_database_host }}
+    --user={{ icinga2_master_icinga2_database_user }} 
+    --password={{ icinga2_master_icinga2_database_pass }}
+    --host={{ icinga2_master_icinga2_database_host }}
     --ssl-ca={{ icinga2_master_ca_path }}
     {{ icinga2_master_icinga2_database_name }}
     -e "SHOW TABLES;" | grep "icinga_hosts"
@@ -13,10 +13,6 @@
   changed_when: icinga2_master_register_icinga2_imported.rc == 1
   failed_when: "'Access denied for' in icinga2_master_register_icinga2_imported.stderr"
   when: icinga2_master_ido_enabled
-
-- name: debug
-  debug:
-    msg: "{{ icinga2_master_register_icinga2_imported }}"
 
 - name: import icinga2 ido database schema using the root user
   mysql_db:
