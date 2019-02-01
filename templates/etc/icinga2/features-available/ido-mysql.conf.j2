@@ -1,0 +1,16 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+/**
+ * The IdoMysqlConnection type implements MySQL support
+ * for DB IDO.
+ */
+
+object IdoMysqlConnection "ido-mysql" {
+  user = "{{ icinga2_master_icinga2_database_user }}"
+  password = "{{ icinga2_master_icinga2_database_pass }}"
+  host = "{{ icinga2_master_icinga2_database_host }}"
+  database = "{{ icinga2_master_icinga2_database_name }}"
+}

@@ -1,1 +1,6 @@
 ---
+
+icinga2_master_ido_packages:
+  - "python-mysqldb"
+  - "icinga2-ido-mysql"
+  - "mysql-client"
