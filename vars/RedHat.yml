@@ -1,1 +1,8 @@
 ---
+
+icinga2_master_ido_packages:
+  - "MySQL-python"
+  - "icinga2-ido-mysql"
+  - "mysql"
+
+icinga2_master_ca_path: "/etc/ssl/certs/ca-bundle.crt"
