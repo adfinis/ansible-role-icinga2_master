@@ -18,10 +18,8 @@ Furthermore, this role takes care of the configuration for all clients.
 Requirements
 =============
 
-Any pre-requisites that may not be covered by Ansible itself or the role
-should be mentioned here. For instance, if the role uses the EC2 module, it
-may be a good idea to mention in this section that the boto package is required.
-
+When `icinga2_master_ido_enabled` is turned on the role tries to activate th [IDO feature](https://icinga.com/docs/icinga2/latest/doc/14-features/#db-ido) for icinga2. This needs a running database, either already existing or using the [`adfinis-sygroup.mariadb`](https://galaxy.ansible.com/adfinis-sygroup/mariadb) role.
+Note: When using a multi-master setup, only one database must be used for both instances!
 
 Role Variables
 ===============
