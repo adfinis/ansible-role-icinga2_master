@@ -18,7 +18,7 @@ Furthermore, this role takes care of the configuration for all clients.
 Requirements
 =============
 
-When `icinga2_master_ido_enabled` is turned on the role tries to activate the [IDO feature](https://icinga.com/docs/icinga2/latest/doc/14-features/#db-ido) for icinga2. This needs a running database, either already existing or using the [`adfinis-sygroup.mariadb`](https://galaxy.ansible.com/adfinis-sygroup/mariadb) role.
+When `icinga2_master_ido_enabled` is turned on the role tries to activate the `IDO feature <https://icinga.com/docs/icinga2/latest/doc/14-features/#db-ido>`_ for icinga2. This needs a running database, either already existing or using the `adfinis-sygroup.mariadb <https://galaxy.ansible.com/adfinis-sygroup/mariadb>`_ role.
 Note: When using a multi-master setup, only one database must be used for both instances!
 
 Role Variables
