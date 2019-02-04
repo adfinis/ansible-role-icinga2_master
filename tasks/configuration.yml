@@ -1,6 +1,6 @@
 ---
 
-- name: check if icinga2 ido table in mysql exists
+- name: check if icinga2 ido table and user in mysql exist
   shell: >
     mysql
     --user={{ icinga2_master_icinga2_database_user }} 
@@ -38,6 +38,8 @@
     login_password: '{{ icinga2_master_db_root_pass }}'
     ssl_ca: '{{ icinga2_master_ca_path }}'
     state: present
+  run_once: True
+  when: icinga2_master_register_icinga2_imported.rc == 1 and icinga2_master_ido_enabled
 
 - name: configure icinga2 ido feature
   template:
