@@ -4,7 +4,7 @@
 icinga2_master_master_zone: monitoring-master
 
 # The parent zone of a client. Needed if a client is behind a satellite
-icinga2_master_client_parent_zone: {{ icinga2_master_master_zone }}
+icinga2_master_client_parent_zone: "{{ icinga2_master_master_zone }}"
 
 # A list of all icinga2 api users
 icinga2_master_api_users: []
@@ -23,3 +23,29 @@ icinga2_master_graphite_host: 127.0.0.1
 
 # The port graphite is listening on
 icinga2_master_graphite_port: 2003
+
+## Icinga2 ido database settings
+
+# Enable ido feature
+icinga2_master_ido_enabled: False
+
+# icinga2 database name
+icinga2_master_icinga2_database_name: icinga2
+#
+# icinga2 database host
+icinga2_master_icinga2_database_host: 127.0.0.1
+
+# icinga2 database port
+icinga2_master_icinga2_database_port: 3306
+
+# icinga2 database user
+icinga2_master_icinga2_database_user: icinga2
+
+# icinga2 database password
+icinga2_master_icinga2_database_pass: 'passw0rd'
+
+# icinga2 database root user
+icinga2_master_db_root_user: "user"
+
+# icinga2 database root password
+icinga2_master_db_root_pass: "passw0rd" 

@@ -2,6 +2,7 @@
 
 dependencies:
   - name: 'adfinis-sygroup.icinga2_agent'
+  - name: 'adfinis-sygroup.mariadb'
 
 galaxy_info:
   role_name: 'icinga2_master'
