@@ -14,10 +14,10 @@ object Host "{{ hostvars[item].inventory_hostname }}" {
 
   vars.client_endpoint = name
 
-  {% if hostvars[item].icinga2_vars is defined %}
-    {%- for v in hostvars[item].icinga2_vars -%}
-  vars.{{ v.name }} = "{{ v.value }}"
-    {%- endfor %}
-  {%- endif %}
+{% if hostvars[item].icinga2_vars is defined %}
+{% for v in hostvars[item].icinga2_vars %}
+  vars.{{ v.name }} = {{ v.value }}
+{% endfor %}
+{% endif %}
 
 }
