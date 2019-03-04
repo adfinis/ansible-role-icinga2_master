@@ -2,7 +2,7 @@
 
 - name: check if icinga2 ido table and user in mysql exist
   shell: >
-    set -o piepfail;
+    set -o pipefail;
     mysql
     --user={{ icinga2_master_db_root_user }} 
     --password={{ icinga2_master_db_root_pass }}
