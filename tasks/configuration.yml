@@ -9,7 +9,6 @@
     --host={{ icinga2_master_icinga2_database_host }}
     --ssl-ca={{ icinga2_master_ca_path }}
     {{ icinga2_master_icinga2_database_name }}
-    set -o piepfail;
     -e "SHOW TABLES;" | grep "icinga_hosts"
   register: icinga2_master_register_icinga2_imported
   changed_when: icinga2_master_register_icinga2_imported.rc == 1
