@@ -30,7 +30,7 @@
 
 - name: create a user with access only to the ido database using the root user
   mysql_user:
-    name: '{{ icinga2_master_icinga2_database_user }}'
+    name: '{{ icinga2_master_icinga2_database_user.split("@")[0] }}'
     password: '{{ icinga2_master_icinga2_database_pass }}'
     priv: '{{ icinga2_master_icinga2_database_name }}.*:ALL'
     login_host: '{{ icinga2_master_icinga2_database_host }}'
