@@ -44,6 +44,9 @@ icinga2_master_icinga2_database_user: icinga2
 # icinga2 database password
 icinga2_master_icinga2_database_pass: 'passw0rd'
 
+# if the database connection uses ssl or not (true or false)
+icinga2_master_icinga2_database_ssl: false
+
 # the hostpattern which can access and login with the icinga2 user
 icinga2_master_icinga2_database_hostpattern: 'localhost'
 
