@@ -84,6 +84,7 @@
     - /etc/icinga2/conf.d/commands.conf
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
+    - /etc/icinga2/conf.d/hosts.conf
 
 - name: install icinga2 api-users configuration
   template:
