@@ -1,0 +1,23 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+object ServiceGroup "ping" {
+  display_name = "Ping Checks"
+
+  assign where match("ping*", service.name)
+}
+
+object ServiceGroup "http" {
+  display_name = "HTTP Checks"
+
+  assign where match("http*", service.check_command)
+}
+
+object ServiceGroup "disk" {
+  display_name = "Disk Checks"
+
+  assign where match("disk*", service.check_command)
+}
+
