@@ -85,6 +85,7 @@
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
+    - /etc/icinga2/conf.d/groups.conf
 
 - name: install icinga2 api-users configuration
   template:
@@ -174,6 +175,8 @@
     - services.conf
     - templates.conf
     - commands.conf
+    - hostgroups.conf
+    - servicegroups.conf
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
