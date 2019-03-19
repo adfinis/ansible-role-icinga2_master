@@ -1,0 +1,18 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.2-1
+ */
+
+{% for user in icinga2_master_users %}
+object User "{{ user.name }}" {
+  import "generic-user"
+
+  display_name = "{{ user.displayname|default(user.name) }}"
+  groups = []
+
+  email = "{{ user.email }}"
+  {% if user.pager is defined -%}
+  pager = "{{ user.pager }}"
+  {% endif %}
+}
+{% endfor %}
