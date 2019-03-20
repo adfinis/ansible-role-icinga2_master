@@ -63,6 +63,19 @@
     state: link
   when: icinga2_master_ido_enabled
 
+- name: install icinga2 configuration
+  template:
+    src: templates/etc/icinga2/icinga2.conf.j2
+    dest: /etc/icinga2/icinga2.conf
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  notify: icinga2_master reload icinga2
+
 - name: install icinga2 constants configuration
   template:
     src: templates/etc/icinga2/constants.conf.j2
