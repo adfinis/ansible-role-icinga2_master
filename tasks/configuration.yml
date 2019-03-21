@@ -93,17 +93,17 @@
   file:
     name: '{{ item }}'
     state: absent
-  with_items:
+  loop:
     - /etc/icinga2/conf.d/commands.conf
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
     - /etc/icinga2/conf.d/groups.conf
 
-- name: install icinga2 api-users configuration
+- name: install icinga2 conf.d configurations
   template:
-    src: templates/etc/icinga2/conf.d/api-users.conf.j2
-    dest: /etc/icinga2/conf.d/api-users.conf
+    src: 'templates/etc/icinga2/conf.d/{{ item }}.j2'
+    dest: '/etc/icinga2/conf.d/{{ item }}'
     owner: icinga
     group: icinga
     mode: 0640
@@ -111,6 +111,9 @@
     serole: object_r
     setype: etc_t
     selevel: s0
+  loop:
+    - api-users.conf
+    - users.conf
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command
@@ -184,7 +187,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  with_items:
+  loop:
     - services.conf
     - templates.conf
     - commands.conf
