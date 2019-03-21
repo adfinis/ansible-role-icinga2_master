@@ -80,7 +80,7 @@
   file:
     name: '{{ item }}'
     state: absent
-  with_items:
+  loop:
     - /etc/icinga2/conf.d/commands.conf
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
@@ -98,7 +98,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  with_items:
+  loop:
     - api-users.conf
     - users.conf
   notify: icinga2_master reload icinga2
@@ -174,7 +174,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  with_items:
+  loop:
     - services.conf
     - templates.conf
     - commands.conf
