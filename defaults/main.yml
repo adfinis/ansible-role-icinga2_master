@@ -6,6 +6,14 @@ icinga2_master_master_zone: monitoring-master
 # The parent zone of a client. Needed if a client is behind a satellite
 icinga2_master_client_parent_zone: "{{ icinga2_master_master_zone }}"
 
+# All users which icinga2 should know. Containing the mailaddress and phone number
+icinga2_master_users: []
+#icinga2_master_users:
+#  - name: username
+#    displayname: 'User Name' # optional
+#    email: 'mail@example.com'
+#    pager: '+41123456789'
+
 # A list of all icinga2 api users
 icinga2_master_api_users: []
 #  - username: root
