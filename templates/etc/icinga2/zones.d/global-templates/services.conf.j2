@@ -98,11 +98,13 @@ apply Service "load" {
   assign where (host.address || host.address6) && host.vars.os == "Linux"
 }
 
-apply Service "procs" {
+apply Service for (proc => config in host.vars.procs) {
   import "generic-service"
 
   check_command = "procs"
   command_endpoint = host.name
+
+  vars += config
 
   assign where host.vars.os == "Linux"
 }
