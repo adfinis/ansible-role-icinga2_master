@@ -9,7 +9,11 @@ icinga2_master_client_parent_zone: "{{ icinga2_master_master_zone }}"
 # All users which icinga2 should know. Containing the mailaddress and phone number
 # Check the official Icinga2 documentation for further information
 # https://icinga.com/docs/icinga2/latest/doc/09-object-types/#user
-icinga2_master_users: []
+icinga2_master_users:
+  - name: icingaadmin
+    email: 'alertme@example.com'
+    groups:
+      - icingaadmins
 #icinga2_master_users:
 #  - name: username
 #    displayname: 'User Name' # optional, defaults to an empty string
@@ -41,7 +45,9 @@ icinga2_master_users: []
 # All groups which icinga2 should know.
 # Check the official icinga2 documentation for further information
 # https://icinga.com/docs/icinga2/latest/doc/09-object-types/#usergroup
-icinga2_master_usergroups: []
+icinga2_master_usergroups:
+  - name: icingaadmins
+    displayname: 'Icinga2 Admins'
 #icinga2_master_groups:
 #  - name: groupname
 #    displayname: 'Group Name' # optional, defaults to an empty string
