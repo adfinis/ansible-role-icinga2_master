@@ -3,16 +3,47 @@
  *  Configuration from Icinga2 version r2.10.2-1
  */
 
+{% for group in icinga2_master_usergroups %}
+object UserGroup "{{ group.name }}" {
+{% if group.displayname is defined and group.displayname|length %}
+  display_name = "Icinga 2 Admin Group"
+{% endif %}
+{% if group.groups is defined and group.groups|length %}
+  groups = [ "{{ group.groups | join('", "') }}" ]
+{% endif %}
+}
+{% endfor %}
+
 {% for user in icinga2_master_users %}
 object User "{{ user.name }}" {
   import "generic-user"
 
+{% if user.displayname is defined and user.displayname|length %}
   display_name = "{{ user.displayname|default(user.name) }}"
-  groups = []
-
+{% endif %}
+{% if user.email is defined and user.email|length %}
   email = "{{ user.email }}"
-  {% if user.pager is defined -%}
+{% endif %}
+{% if user.pager is defined and user.pager|length %}
   pager = "{{ user.pager }}"
-  {% endif %}
+{% endif %}
+{% if user.groups is defined and user.groups|length %}
+  groups = [ "{{ user.groups | join('", "') }}" ]
+{% endif %}
+{% if user.enable_notifications is defined and enable_notifications %}
+  enable_notifications = true
+{% else %}
+  enable_notifications = false
+{% endif %}
+{% if user.period is defined and user.period|length %}
+  period = "{{ user.period }}"
+{% endif %}
+{% if user.types is defined and user.types|length %}
+  types = [ "{{ user.types | join('", "') }}" ]
+{% endif %}
+{% if user.states is defined and user.states|length %}
+  types = [ "{{ user.states | join('", "') }}" ]
+{% endif %}
 }
 {% endfor %}
+
