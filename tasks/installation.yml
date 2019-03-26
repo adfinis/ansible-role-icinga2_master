@@ -10,3 +10,45 @@
   retries: 10
   delay: 2
 
+- name: check if icinga2 ido table and user in mysql exist
+  shell: >
+    set -o pipefail;
+    mysql
+    --user={{ icinga2_master_db_root_user }}
+    --password={{ icinga2_master_db_root_pass }}
+    --host={{ icinga2_master_icinga2_database_host }}
+    --ssl-ca={{ icinga2_master_ca_path }}
+    {{ icinga2_master_icinga2_database_name }}
+    -e "SHOW TABLES;" | grep "icinga_hosts"
+  register: icinga2_master_register_icinga2_imported
+  changed_when: icinga2_master_register_icinga2_imported.rc == 1
+  failed_when: "'Access denied for' in icinga2_master_register_icinga2_imported.stderr"
+  when: icinga2_master_ido_enabled
+
+- name: import icinga2 ido database schema using the root user
+  mysql_db:
+    name: '{{ icinga2_master_icinga2_database_name }}'
+    login_host: '{{ icinga2_master_icinga2_database_host }}'
+    login_port: '{{ icinga2_master_icinga2_database_port }}'
+    login_user: '{{ icinga2_master_db_root_user }}'
+    login_password: '{{ icinga2_master_db_root_pass }}'
+    ssl_ca: '{{ icinga2_master_ca_path }}'
+    state: import
+    target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
+  run_once: True
+  when: icinga2_master_register_icinga2_imported.rc == 1 and icinga2_master_ido_enabled
+
+- name: create a user with access only to the ido database using the root user
+  mysql_user:
+    name: '{{ icinga2_master_icinga2_database_user.split("@")[0] }}'
+    password: '{{ icinga2_master_icinga2_database_pass }}'
+    priv: '{{ icinga2_master_icinga2_database_name }}.*:ALL'
+    host: '{{ icinga2_master_icinga2_database_hostpattern }}'
+    login_host: '{{ icinga2_master_icinga2_database_host }}'
+    login_port: '{{ icinga2_master_icinga2_database_port }}'
+    login_user: '{{ icinga2_master_db_root_user }}'
+    login_password: '{{ icinga2_master_db_root_pass }}'
+    ssl_ca: '{{ icinga2_master_ca_path }}'
+    state: present
+  run_once: True
+  when: icinga2_master_register_icinga2_imported.rc == 1 and icinga2_master_ido_enabled
