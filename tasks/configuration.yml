@@ -51,7 +51,6 @@
     name: '{{ item }}'
     state: absent
   loop:
-    - /etc/icinga2/conf.d/commands.conf
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
@@ -71,6 +70,7 @@
   loop:
     - api-users.conf
     - users.conf
+    - commands.conf
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command
@@ -147,7 +147,6 @@
   loop:
     - services.conf
     - templates.conf
-    - commands.conf
     - hostgroups.conf
     - servicegroups.conf
   notify: icinga2_master reload icinga2
