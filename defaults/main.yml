@@ -7,12 +7,53 @@ icinga2_master_master_zone: monitoring-master
 icinga2_master_client_parent_zone: "{{ icinga2_master_master_zone }}"
 
 # All users which icinga2 should know. Containing the mailaddress and phone number
-icinga2_master_users: []
+# Check the official Icinga2 documentation for further information
+# https://icinga.com/docs/icinga2/latest/doc/09-object-types/#user
+icinga2_master_users:
+  - name: icingaadmin
+    email: 'alertme@example.com'
+    groups:
+      - icingaadmins
 #icinga2_master_users:
 #  - name: username
-#    displayname: 'User Name' # optional
-#    email: 'mail@example.com'
-#    pager: '+41123456789'
+#    displayname: 'User Name' # optional, defaults to an empty string
+#    email: 'mail@example.com' # optional, defaults to an empty string
+#    pager: '+41123456789' # optional, defaults to an empty string
+#    groups: [] # optional, defaults to an empty list
+#      # - group1
+#      # - group2
+#    enable_notifications: (true|false) # optional, defaults to true
+#    period: '24x7' # optional, not set by default
+#    types: [] # optional, not set by default
+#      # - DowntimeStart
+#      # - DowntimeEnd
+#      # - DowntimeRemoved
+#      # - Custom
+#      # - Acknowledgement
+#      # - Problem
+#      # - Recovery
+#      # - FlappingStart
+#      # - FlappingEnd
+#    states: [] # optional, not set by default
+#      # - OK
+#      # - Warning
+#      # - Critical
+#      # - Unknown
+#      # - Up
+#      # - Down
+
+# All groups which icinga2 should know.
+# Check the official icinga2 documentation for further information
+# https://icinga.com/docs/icinga2/latest/doc/09-object-types/#usergroup
+icinga2_master_usergroups:
+  - name: icingaadmins
+    displayname: 'Icinga2 Admins'
+#icinga2_master_groups:
+#  - name: groupname
+#    displayname: 'Group Name' # optional, defaults to an empty string
+#    groups: [] # optional, not set by default
+#      # - group1
+#      # - group2
 
 # A list of all icinga2 api users
 icinga2_master_api_users: []
