@@ -54,7 +54,6 @@
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
-    - /etc/icinga2/conf.d/groups.conf
 
 - name: install icinga2 conf.d configurations
   template:
@@ -147,8 +146,7 @@
   loop:
     - services.conf
     - templates.conf
-    - hostgroups.conf
-    - servicegroups.conf
+    - groups.conf
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
