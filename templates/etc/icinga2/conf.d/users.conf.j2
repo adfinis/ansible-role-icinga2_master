@@ -6,7 +6,7 @@
 {% for group in icinga2_master_usergroups %}
 object UserGroup "{{ group.name }}" {
 {% if group.displayname is defined and group.displayname|length %}
-  display_name = "Icinga 2 Admin Group"
+  display_name = "{{ group.displayname }}"
 {% endif %}
 {% if group.groups is defined and group.groups|length %}
   groups = [ "{{ group.groups | join('", "') }}" ]
