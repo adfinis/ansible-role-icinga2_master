@@ -1,0 +1,49 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.4
+ *
+ *  Icinga2 notification templates
+ */
+
+{% if icinga2_master_twilio_sms_enabled|bool == true %}
+template Notification "twilio-sms-host-notification" {
+  command = "twilio-sms-host-notification"
+
+  states = [ Up, Down ]
+  types = [ Problem ]
+
+  vars += {
+    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+    notification_logtosyslog = false
+  }
+}
+
+template Notification "twilio-sms-service-notification" {
+  command = "twilio-sms-service-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem ]
+
+  vars += {
+    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+    notification_logtosyslog = false
+  }
+}
+{% endif %}
+
+{% if icinga2_master_twilio_phone_enabled|bool == true %}
+template Notification "phone-service-notification" {
+  command = "phone-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem ]
+}
+
+template Notification "phone-host-notification" {
+  command = "phone-notification"
+
+  states = [ Up, Down]
+  types = [ Problem ]
+}
+
+{% endif %}
