@@ -69,7 +69,7 @@
   loop:
     - twilio-sms-host-notification.sh
     - twilio-sms-service-notification.sh
-  when: icinga2_master_twilio_sms_enabled|bool == true
+  when: icinga2_master_twilio_sms_enabled
 
 - name: install twilio phone script
   template:
