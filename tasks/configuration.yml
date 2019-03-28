@@ -67,9 +67,9 @@
     setype: etc_t
     selevel: s0
   loop:
-    - twilio_sms_host_notification.sh
-    - twilio_sms_service_notifications.sh
-  when: icinga2_master_twilio_sms_enabled
+    - twilio-sms-host-notification.sh
+    - twilio-sms-service-notifications.sh
+  when: icinga2_master_twilio_sms_enabled|bool == true
 
 - name: install twilio phone script
   template:
@@ -83,8 +83,8 @@
     setype: etc_t
     selevel: s0
   loop:
-    - twilio_phone_notification.sh
-  when: icinga2_master_twilio_phone_enabled
+    - twilio-phone-notification.sh
+  when: icinga2_master_twilio_phone_enabled|bool == true
 
 - name: install icinga2 conf.d configurations
   template:
