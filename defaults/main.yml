@@ -114,7 +114,7 @@ icinga2_master_db_root_pass: "passw0rd"
 
 ## Twilio alerting
 
-# The accound sid from https://www.twilio.com/console
+# The account sid from https://www.twilio.com/console
 #icinga2_master_twilio_account_sid: 'account_sid'
 
 # The auth token from https://www.twilio.com/console
