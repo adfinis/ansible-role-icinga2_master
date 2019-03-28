@@ -243,7 +243,7 @@ object NotificationCommand "twilio-sms-service-notification" {
 }
 {% endif %}
 
-{% if icinga2_master_twilio_phone_enabled|bool == true %}
+{% if icinga2_master_twilio_phone_enabled %}
 object NotificationCommand "twilio-phone-notification" {
   command = [ ConfigDir + "/scripts/twilio-phone-notification.sh" ]
 
