@@ -104,3 +104,27 @@ icinga2_master_db_root_user: "user"
 
 # icinga2 database root password
 icinga2_master_db_root_pass: "passw0rd" 
+
+## Twilio alerting
+
+# The accound sid from https://www.twilio.com/console
+#icinga2_master_twilio_account_sid: 'account_sid'
+
+# The auth token from https://www.twilio.com/console
+#icinga2_master_twilio_auth_token: 'auth_token'
+
+# Whether twilio sms are enabled or not
+icinga2_master_twilio_sms_enabled: False
+
+# The twilio phone numer used to send sms
+#icinga2_master_twilio_sms_from: '+41123456789'
+
+# Whether twilio calls are enabled or not
+icinga2_master_twilio_phone_enabled: False
+
+# The twilio phone number used to make calls
+#icinga2_master_twilio_phone_from: '+41123456789'
+
+# The twilio application sid on how to handle the call
+# https://www.twilio.com/docs/voice/make-calls
+#icinga2_master_twilio_phone_application_sid: 'application_sid'

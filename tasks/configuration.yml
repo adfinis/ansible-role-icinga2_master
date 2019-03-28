@@ -55,6 +55,38 @@
     - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
 
+# Twilio configuration
+- name: install twilio sms scripts
+  template:
+    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
+    dest: '/etc/icinga2/scripts/{{ item }}'
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  loop:
+    - twilio_sms_host_notification.sh
+    - twilio_sms_service_notifications.sh
+  when: icinga2_master_twilio_sms_enabled
+
+- name: install twilio phone script
+  template:
+    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
+    dest: '/etc/icinga2/scripts/{{ item }}'
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  loop:
+    - twilio_phone_notification.sh
+  when: icinga2_master_twilio_phone_enabled
+
 - name: install icinga2 conf.d configurations
   template:
     src: 'templates/etc/icinga2/conf.d/{{ item }}.j2'
