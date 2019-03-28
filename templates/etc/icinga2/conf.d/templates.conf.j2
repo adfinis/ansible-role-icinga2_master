@@ -68,7 +68,7 @@ template Notification "twilio-sms-service-notification" {
 }
 {% endif %}
 
-{% if icinga2_master_twilio_phone_enabled|bool == true %}
+{% if icinga2_master_twilio_phone_enabled %}
 template Notification "twilio-phone-service-notification" {
   command = "twilio-phone-notification"
 
