@@ -84,7 +84,7 @@
     selevel: s0
   loop:
     - twilio-phone-notification.sh
-  when: icinga2_master_twilio_phone_enabled|bool == true
+  when: icinga2_master_twilio_phone_enabled
 
 - name: install icinga2 conf.d configurations
   template:
