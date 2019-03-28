@@ -137,7 +137,7 @@ object NotificationCommand "mail-service-notification" {
   }
 }
 
-{% if icinga2_master_twilio_sms_enabled|bool == true %}
+{% if icinga2_master_twilio_sms_enabled %}
 object NotificationCommand "twilio-sms-host-notification" {
   command = [ ConfigDir + "/scripts/twilio-sms-host-notification.sh" ]
 
