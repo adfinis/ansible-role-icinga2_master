@@ -102,6 +102,7 @@
     - api-users.conf
     - users.conf
     - commands.conf
+    - groups.conf
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command
@@ -178,7 +179,6 @@
   loop:
     - services.conf
     - templates.conf
-    - groups.conf
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
