@@ -48,7 +48,7 @@ create a `TwiML <https://www.twilio.com/docs/voice/twiml>`_ application.
 
   ## Twilio alerting
 
-  # The accound sid from https://www.twilio.com/console
+  # The account sid from https://www.twilio.com/console
   #icinga2_master_twilio_account_sid: 'account_sid'
   
   # The auth token from https://www.twilio.com/console
@@ -61,7 +61,7 @@ create a `TwiML <https://www.twilio.com/docs/voice/twiml>`_ application.
   #icinga2_master_twilio_sms_from: '+41123456789'
   
   # Whether twilio calls are enabled or not
-  #icinga2_master_twilio_phone_enabled: False
+  icinga2_master_twilio_phone_enabled: False
   
   # The twilio phone number used to make calls
   #icinga2_master_twilio_phone_from: '+41123456789'
