@@ -32,15 +32,15 @@ template Notification "twilio-sms-service-notification" {
 {% endif %}
 
 {% if icinga2_master_twilio_phone_enabled|bool == true %}
-template Notification "phone-service-notification" {
-  command = "phone-notification"
+template Notification "twilio-phone-service-notification" {
+  command = "twilio-phone-notification"
 
   states = [ OK, Warning, Critical, Unknown ]
   types = [ Problem ]
 }
 
-template Notification "phone-host-notification" {
-  command = "phone-notification"
+template Notification "twilio-phone-host-notification" {
+  command = "twilio-phone-notification"
 
   states = [ Up, Down]
   types = [ Problem ]

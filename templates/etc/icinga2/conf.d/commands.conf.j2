@@ -138,8 +138,8 @@ object NotificationCommand "mail-service-notification" {
 }
 
 {% if icinga2_master_twilio_sms_enabled|bool == true %}
-object NotificationCommand "sms-host-notification" {
-  command = [ ConfigDir + "/scripts/sms-host-notification.sh" ]
+object NotificationCommand "twilio-sms-host-notification" {
+  command = [ ConfigDir + "/scripts/twilio-sms-host-notification.sh" ]
 
   arguments += {
     "-d" = {
@@ -185,8 +185,8 @@ object NotificationCommand "sms-host-notification" {
   }
 }
 
-object NotificationCommand "sms-service-notification" {
-  command = [ ConfigDir + "/scripts/sms-service-notification.sh" ]
+object NotificationCommand "twilio-sms-service-notification" {
+  command = [ ConfigDir + "/scripts/twilio-sms-service-notification.sh" ]
 
   arguments += {
     "-d" = {
@@ -244,8 +244,8 @@ object NotificationCommand "sms-service-notification" {
 {% endif %}
 
 {% if icinga2_master_twilio_phone_enabled|bool == true %}
-object NotificationCommand "phone-notification" {
-  command = [ ConfigDir + "/scripts/phone-notification.sh" ]
+object NotificationCommand "twilio-phone-notification" {
+  command = [ ConfigDir + "/scripts/twilio-phone-notification.sh" ]
 
   arguments += {
     "-r" = {

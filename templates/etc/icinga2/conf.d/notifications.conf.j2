@@ -28,7 +28,7 @@ apply Notification "mail-icingaadmin" to Host {
 
 # SMS Premium Pikett 1
 apply Notification "sms-premium-1st-level" to Host {
-  import "sms-host-notification"
+  import "twilio-sms-host-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 5m
@@ -38,7 +38,7 @@ apply Notification "sms-premium-1st-level" to Host {
   assign where host.vars.sla == "premium"
 }
 apply Notification "sms-premium-1st-level" to Service {
-  import "sms-service-notification"
+  import "twilio-sms-service-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 5m
@@ -50,7 +50,7 @@ apply Notification "sms-premium-1st-level" to Service {
 
 # Phone Premium Pikett 1
 apply Notification "phone-premium-1st-level" to Host {
-  import "phone-host-notification"
+  import "twilio-phone-host-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 10m
@@ -60,7 +60,7 @@ apply Notification "phone-premium-1st-level" to Host {
   assign where host.vars.sla == "premium"
 }
 apply Notification "phone-premium-1st-level" to Service {
-  import "phone-service-notification"
+  import "twilio-phone-service-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 10m
@@ -72,7 +72,7 @@ apply Notification "phone-premium-1st-level" to Service {
 
 # SMS Premium Pikett 2
 apply Notification "sms-premium-2nd-level" to Host {
-  import "sms-host-notification"
+  import "twilio-sms-host-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 15m
@@ -82,7 +82,7 @@ apply Notification "sms-premium-2nd-level" to Host {
   assign where host.vars.sla == "premium"
 }
 apply Notification "sms-premium-2nd-level" to Service {
-  import "sms-service-notification"
+  import "twilio-sms-service-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 15m
@@ -94,7 +94,7 @@ apply Notification "sms-premium-2nd-level" to Service {
 
 # Phone Premium Pikett 2
 apply Notification "phone-premium-2nd-level" to Host {
-  import "phone-host-notification"
+  import "twilio-phone-host-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 20m
@@ -104,7 +104,7 @@ apply Notification "phone-premium-2nd-level" to Host {
   assign where host.vars.sla == "premium"
 }
 apply Notification "phone-premium-2nd-level" to Service {
-  import "phone-service-notification"
+  import "twilio-phone-service-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 20m
@@ -116,7 +116,7 @@ apply Notification "phone-premium-2nd-level" to Service {
 
 # SMS Standard Pikett 1
 apply Notification "sms-standard-1st-level" to Host {
-  import "sms-host-notification"
+  import "twilio-sms-host-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 5m
@@ -126,7 +126,7 @@ apply Notification "sms-standard-1st-level" to Host {
   assign where host.vars.sla == "standard"
 }
 apply Notification "sms-standard-1st-level" to Service {
-  import "sms-service-notification"
+  import "twilio-sms-service-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 5m
@@ -138,7 +138,7 @@ apply Notification "sms-standard-1st-level" to Service {
 
 # Phone Standard Pikett 1
 apply Notification "phone-standard-1st-level" to Host {
-  import "phone-host-notification"
+  import "twilio-phone-host-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 10m
@@ -148,7 +148,7 @@ apply Notification "phone-standard-1st-level" to Host {
   assign where host.vars.sla == "standard"
 }
 apply Notification "phone-standard-1st-level" to Service {
-  import "phone-service-notification"
+  import "twilio-phone-service-notification"
   user_groups = [ "pikett1" ]
 
   times.begin = 10m
@@ -160,7 +160,7 @@ apply Notification "phone-standard-1st-level" to Service {
 
 # SMS Standard Pikett 2
 apply Notification "sms-standard-2nd-level" to Host {
-  import "sms-host-notification"
+  import "twilio-sms-host-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 15m
@@ -170,7 +170,7 @@ apply Notification "sms-standard-2nd-level" to Host {
   assign where host.vars.sla == "standard"
 }
 apply Notification "sms-standard-2nd-level" to Service {
-  import "sms-service-notification"
+  import "twilio-sms-service-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 15m
@@ -182,7 +182,7 @@ apply Notification "sms-standard-2nd-level" to Service {
 
 # Phone Standard Pikett 2
 apply Notification "phone-standard-2nd-level" to Host {
-  import "phone-host-notification"
+  import "twilio-phone-host-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 20m
@@ -192,7 +192,7 @@ apply Notification "phone-standard-2nd-level" to Host {
   assign where host.vars.sla == "standard"
 }
 apply Notification "phone-standard-2nd-level" to Service {
-  import "phone-service-notification"
+  import "twilio-phone-service-notification"
   user_groups = [ "pikett2" ]
 
   times.begin = 20m
