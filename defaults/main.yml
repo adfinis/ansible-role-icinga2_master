@@ -105,6 +105,13 @@ icinga2_master_db_root_user: "user"
 # icinga2 database root password
 icinga2_master_db_root_pass: "passw0rd" 
 
+
+## Global alerting settings
+
+# The URL from icingaweb2. Will be attached to the alerts
+#icinga2_master_alerting_icingaweb2url = "https://icinga2.example.com/icingaweb2"
+
+
 ## Twilio alerting
 
 # The accound sid from https://www.twilio.com/console

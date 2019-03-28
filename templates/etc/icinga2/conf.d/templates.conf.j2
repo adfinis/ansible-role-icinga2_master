@@ -5,6 +5,43 @@
  *  Icinga2 notification templates
  */
 
+template Notification "mail-host-notification" {
+  command = "mail-host-notification"
+
+  states = [ Up, Down ]
+  types = [ Problem, Acknowledgement, Recovery, Custom,
+            FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
+
+  vars += {
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
+    notification_logtosyslog = false
+  }
+}
+
+/**
+ * Provides default settings for service notifications.
+ * By convention all service notifications should import
+ * this template.
+ */
+template Notification "mail-service-notification" {
+  command = "mail-service-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem, Acknowledgement, Recovery, Custom,
+            FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
+
+  vars += {
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
+    notification_logtosyslog = false
+  }
+}
+
 {% if icinga2_master_twilio_sms_enabled|bool == true %}
 template Notification "twilio-sms-host-notification" {
   command = "twilio-sms-host-notification"
