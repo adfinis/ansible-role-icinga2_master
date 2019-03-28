@@ -47,9 +47,10 @@
   notify: icinga2_master reload icinga2
 
 - name: remove files from conf.d which are already defined in global-templates
-  file:
-    name: '{{ item }}'
-    state: absent
+  copy:
+    dest: '{{ item }}'
+    content: ""
+    force: yes
   loop:
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/templates.conf
