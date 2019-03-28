@@ -42,6 +42,7 @@ Error() {
   exit 1;
 }
 
+{% raw %}
 urlencode() {
   local LANG=C i c e=''
   for ((i=0;i<${#1};i++)); do
@@ -51,6 +52,7 @@ urlencode() {
   done
   echo "$e"
 }
+{% endraw %}
 
 ## Main
 while getopts d:e:hi:l:n:o:r:s:t:u:v: opt

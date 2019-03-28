@@ -68,7 +68,7 @@
     selevel: s0
   loop:
     - twilio-sms-host-notification.sh
-    - twilio-sms-service-notifications.sh
+    - twilio-sms-service-notification.sh
   when: icinga2_master_twilio_sms_enabled|bool == true
 
 - name: install twilio phone script
