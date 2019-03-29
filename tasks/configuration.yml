@@ -53,8 +53,39 @@
     force: yes
   loop:
     - /etc/icinga2/conf.d/services.conf
-    - /etc/icinga2/conf.d/templates.conf
     - /etc/icinga2/conf.d/hosts.conf
+
+# Twilio configuration
+- name: install twilio sms scripts
+  template:
+    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
+    dest: '/etc/icinga2/scripts/{{ item }}'
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  loop:
+    - twilio-sms-host-notification.sh
+    - twilio-sms-service-notification.sh
+  when: icinga2_master_twilio_sms_enabled
+
+- name: install twilio phone script
+  template:
+    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
+    dest: '/etc/icinga2/scripts/{{ item }}'
+    owner: icinga
+    group: icinga
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  loop:
+    - twilio-phone-notification.sh
+  when: icinga2_master_twilio_phone_enabled
 
 - name: install icinga2 conf.d configurations
   template:
@@ -69,9 +100,12 @@
     selevel: s0
   loop:
     - api-users.conf
-    - users.conf
     - commands.conf
     - groups.conf
+    - notifications.conf
+    - templates.conf
+    - timeperiods.conf
+    - users.conf
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command

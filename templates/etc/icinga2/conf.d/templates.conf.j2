@@ -1,0 +1,86 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.4
+ *
+ *  Icinga2 notification templates
+ */
+
+template Notification "mail-host-notification" {
+  command = "mail-host-notification"
+
+  states = [ Up, Down ]
+  types = [ Problem, Acknowledgement, Recovery, Custom,
+            FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
+
+  vars += {
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
+    notification_logtosyslog = false
+  }
+}
+
+/**
+ * Provides default settings for service notifications.
+ * By convention all service notifications should import
+ * this template.
+ */
+template Notification "mail-service-notification" {
+  command = "mail-service-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem, Acknowledgement, Recovery, Custom,
+            FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
+
+  vars += {
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
+    notification_logtosyslog = false
+  }
+}
+
+{% if icinga2_master_twilio_sms_enabled %}
+template Notification "twilio-sms-host-notification" {
+  command = "twilio-sms-host-notification"
+
+  states = [ Up, Down ]
+  types = [ Problem ]
+
+  vars += {
+    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+    notification_logtosyslog = false
+  }
+}
+
+template Notification "twilio-sms-service-notification" {
+  command = "twilio-sms-service-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem ]
+
+  vars += {
+    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+    notification_logtosyslog = false
+  }
+}
+{% endif %}
+
+{% if icinga2_master_twilio_phone_enabled %}
+template Notification "twilio-phone-service-notification" {
+  command = "twilio-phone-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem ]
+}
+
+template Notification "twilio-phone-host-notification" {
+  command = "twilio-phone-notification"
+
+  states = [ Up, Down]
+  types = [ Problem ]
+}
+
+{% endif %}

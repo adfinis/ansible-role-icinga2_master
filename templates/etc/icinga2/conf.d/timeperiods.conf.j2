@@ -1,0 +1,32 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.4
+ *
+ *  Icinga2 timeperiods
+ */
+
+object TimePeriod "premium" {
+  display_name = "SLA Premium"
+
+  ranges = {
+    "monday"    = "00:00-24:00"
+    "tuesday"   = "00:00-24:00"
+    "wednesday" = "00:00-24:00"
+    "thursday"  = "00:00-24:00"
+    "friday"    = "00:00-24:00"
+    "saturday"  = "00:00-24:00"
+    "sunday"    = "00:00-24:00"
+  }
+}
+
+object TimePeriod "standard" {
+  display_name = "SLA Standard"
+
+  ranges = {
+    "monday"    = "08:00-18:00"
+    "tuesday"   = "08:00-18:00"
+    "wednesday" = "08:00-18:00"
+    "thursday"  = "08:00-18:00"
+    "friday"    = "08:00-18:00"
+  }
+}

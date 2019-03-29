@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+
+account_sid="{{ icinga2_master_twilio_account_sid }}"
+auth_token="{{ icinga2_master_twilio_auth_token }}"
+phone_number="{{ icinga2_master_twilio_sms_from }}"
+
+PROG="`basename $0`"
+
+## Function helpers
+Usage() {
+cat << EOF
+
+Required parameters:
+  -d LONGDATETIME (\$icinga.long_date_time\$)
+  -e SERVICENAME (\$service.name\$)
+  -l HOSTNAME (\$host.name\$)
+  -n HOSTDISPLAYNAME (\$host.display_name\$)
+  -o SERVICEOUTPUT (\$service.output\$)
+  -r USERPHONE (\$user.pager\$)
+  -s SERVICESTATE (\$service.state\$)
+  -t NOTIFICATIONTYPE (\$notification.type\$)
+  -u SERVICEDISPLAYNAME (\$service.display_name\$)
+
+Optional parameters:
+  -i ICINGAWEB2URL (\$notification_icingaweb2url\$, Default: unset)
+  -r USERPHONE (\$user.pager\$)
+  -v (\$notification_sendtosyslog\$, Default: false)
+
+EOF
+}
+
+Help() {
+  Usage;
+  exit 0;
+}
+
+Error() {
+  if [ "$1" ]; then
+    echo $1
+  fi
+  Usage;
+  exit 1;
+}
+
+{% raw %}
+urlencode() {
+  local LANG=C i c e=''
+  for ((i=0;i<${#1};i++)); do
+    c=${1:$i:1}
+    [[ "$c" =~ [a-zA-Z0-9\.\~\_\-] ]] || printf -v c '%%%02X' "'$c"
+    e+="$c"
+  done
+  echo "$e"
+}
+{% endraw %}
+
+## Main
+while getopts d:e:hi:l:n:o:r:s:t:u:v: opt
+do
+  case "$opt" in
+    d) LONGDATETIME=$OPTARG ;; # required
+    e) SERVICENAME=$OPTARG ;; # required
+    h) Usage ;;
+    i) ICINGAWEB2URL=$OPTARG ;;
+    l) HOSTNAME=$OPTARG ;; # required
+    n) HOSTDISPLAYNAME=$OPTARG ;; # required
+    o) SERVICEOUTPUT=$OPTARG ;; # required
+    r) USERPHONE=$OPTARG ;; # required
+    s) SERVICESTATE=$OPTARG ;; # required
+    t) NOTIFICATIONTYPE=$OPTARG ;; # required
+    u) SERVICEDISPLAYNAME=$OPTARG ;; # required
+    v) VERBOSE=$OPTARG ;;
+   \?) echo "ERROR: Invalid option -$OPTARG" >&2
+       Usage ;;
+    :) echo "Missing option argument for -$OPTARG" >&2
+       Usage ;;
+    *) echo "Unimplemented option: -$OPTARG" >&2
+       Usage ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+## Keep formatting in sync with mail-host-notification.sh
+for P in LONGDATETIME HOSTNAME HOSTDISPLAYNAME SERVICENAME SERVICEDISPLAYNAME SERVICEOUTPUT SERVICESTATE USERPHONE NOTIFICATIONTYPE ; do
+        eval "PAR=\$${P}"
+
+        if [ ! "$PAR" ] ; then
+                Error "Required parameter '$P' is missing."
+        fi
+done
+
+## Build the message's subject
+SUBJECT="[$NOTIFICATIONTYPE] $SERVICEDISPLAYNAME on $HOSTDISPLAYNAME is $SERVICESTATE!"
+
+## Build the notification message
+NOTIFICATION_MESSAGE=`cat << EOF
+[$SERVICESTATE] $SERVICEDISPLAYNAME on $HOSTDISPLAYNAME
+
+Info:    $SERVICEOUTPUT
+When:    $LONGDATETIME
+EOF
+`
+
+## Check whether Icinga Web 2 URL was specified.
+if [ -n "$ICINGAWEB2URL" ] ; then
+  NOTIFICATION_MESSAGE="$NOTIFICATION_MESSAGE
+
+$ICINGAWEB2URL/monitoring/service/show?host=$(urlencode "$HOSTNAME")&service=$(urlencode "$SERVICENAME")"
+fi
+
+## Check whether verbose mode was enabled and log to syslog.
+if [ "$VERBOSE" == "true" ] ; then
+  logger "$PROG sends $SUBJECT => $USERPHONE"
+fi
+
+
+## Send the call using the Twilio API
+echo "sent sms to ${your_number} now: $(date -u)" >> ./logfile.log
+
+curl -X POST -u "${account_sid}:${auth_token}" \
+  -d "Body=${NOTIFICATION_MESSAGE}" \
+  -d "From=${phone_number}" \
+  -d "To=${USERPHONE}" \
+  "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages"
+
