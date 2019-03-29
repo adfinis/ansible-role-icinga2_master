@@ -137,53 +137,125 @@ object NotificationCommand "mail-service-notification" {
   }
 }
 
-/*
- * If you prefer to use the notification scripts with environment
- * variables instead of command line parameters, you can use
- * the following commands. They have been updated from < 2.7
- * to support the new notification scripts and should help
- * with an upgrade.
- * Remove the comment blocks and comment the notification commands above.
- */
+{% if icinga2_master_twilio_sms_enabled %}
+object NotificationCommand "twilio-sms-host-notification" {
+  command = [ ConfigDir + "/scripts/twilio-sms-host-notification.sh" ]
 
-/*
+  arguments += {
+    "-d" = {
+      required = true
+      value = "$notification_date$"
+    }
+    "-i" = "$notification_icingaweb2url$"
+    "-l" = {
+      required = true
+      value = "$notification_hostname$"
+    }
+    "-n" = {
+      required = true
+      value = "$notification_hostdisplayname$"
+    }
+    "-o" = {
+      required = true
+      value = "$notification_hostoutput$"
+    }
+    "-r" = {
+      required = true
+      value = "$notification_userpager$"
+    }
+    "-s" = {
+      required = true
+      value = "$notification_hoststate$"
+    }
+    "-t" = {
+      required = true
+      value = "$notification_type$"
+    }
+    "-v" = "$notification_logtosyslog$"
+  }
 
-object NotificationCommand "mail-host-notification" {
-  command = [ ConfigDir + "/scripts/mail-host-notification.sh" ]
-
-  env = {
-    NOTIFICATIONTYPE = "$notification.type$"
-    HOSTDISPLAYNAME = "$host.display_name$"
-    HOSTNAME = "$host.name$"
-    HOSTADDRESS = "$address$"
-    HOSTSTATE = "$host.state$"
-    LONGDATETIME = "$icinga.long_date_time$"
-    HOSTOUTPUT = "$host.output$"
-    NOTIFICATIONAUTHORNAME = "$notification.author$"
-    NOTIFICATIONCOMMENT = "$notification.comment$"
-    HOSTDISPLAYNAME = "$host.display_name$"
-    USEREMAIL = "$user.email$"
+  vars += {
+    notification_type = "$notification.type$"
+    notification_date = "$icinga.long_date_time$"
+    notification_hostname = "$host.name$"
+    notification_hostdisplayname = "$host.display_name$"
+    notification_hostoutput = "$host.output$"
+    notification_hoststate = "$host.state$"
+    notification_userpager = "$user.pager$"
   }
 }
 
-object NotificationCommand "mail-service-notification" {
-  command = [ ConfigDir + "/scripts/mail-service-notification.sh" ]
+object NotificationCommand "twilio-sms-service-notification" {
+  command = [ ConfigDir + "/scripts/twilio-sms-service-notification.sh" ]
 
-  env = {
-    NOTIFICATIONTYPE = "$notification.type$"
-    SERVICENAME = "$service.name$"
-    HOSTNAME = "$host.name$"
-    HOSTDISPLAYNAME = "$host.display_name$"
-    HOSTADDRESS = "$address$"
-    SERVICESTATE = "$service.state$"
-    LONGDATETIME = "$icinga.long_date_time$"
-    SERVICEOUTPUT = "$service.output$"
-    NOTIFICATIONAUTHORNAME = "$notification.author$"
-    NOTIFICATIONCOMMENT = "$notification.comment$"
-    HOSTDISPLAYNAME = "$host.display_name$"
-    SERVICEDISPLAYNAME = "$service.display_name$"
-    USEREMAIL = "$user.email$"
+  arguments += {
+    "-d" = {
+      required = true
+      value = "$notification_date$"
+    }
+    "-e" = {
+      required = true
+      value = "$notification_servicename$"
+    }
+    "-i" = "$notification_icingaweb2url$"
+    "-l" = {
+      required = true
+      value = "$notification_hostname$"
+    }
+    "-n" = {
+      required = true
+      value = "$notification_hostdisplayname$"
+    }
+    "-o" = {
+      required = true
+      value = "$notification_serviceoutput$"
+    }
+    "-r" = {
+      required = true
+      value = "$notification_userpager$"
+    }
+    "-s" = {
+      required = true
+      value = "$notification_servicestate$"
+    }
+    "-t" = {
+      required = true
+      value = "$notification_type$"
+    }
+    "-u" = {
+      required = true
+      value = "$notification_servicedisplayname$"
+    }
+    "-v" = "$notification_logtosyslog$"
+  }
+
+  vars += {
+    notification_type = "$notification.type$"
+    notification_date = "$icinga.long_date_time$"
+    notification_hostname = "$host.name$"
+    notification_hostdisplayname = "$host.display_name$"
+    notification_servicename = "$service.name$"
+    notification_serviceoutput = "$service.output$"
+    notification_servicestate = "$service.state$"
+    notification_userpager = "$user.pager$"
+    notification_servicedisplayname = "$service.display_name$"
   }
 }
+{% endif %}
 
-*/
+{% if icinga2_master_twilio_phone_enabled %}
+object NotificationCommand "twilio-phone-notification" {
+  command = [ ConfigDir + "/scripts/twilio-phone-notification.sh" ]
+
+  arguments += {
+    "-r" = {
+      required = true
+      value = "$notification_userpager$"
+    }
+  }
+
+  vars += {
+    notification_userpager = "$user.pager$"
+  }
+}
+{% endif %}

@@ -1,0 +1,202 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.4
+ *
+ *  Icinga2 notifications
+ */
+
+apply Notification "mail-icingaadmin" to Service {
+  import "mail-service-notification"
+  user_groups = [ "pikett1", "pikett2" ]
+
+  interval = 0 // disable re-notification
+
+  assign where host.vars.sla == "premium"
+  assign where host.vars.sla == "standard"
+  assign where host.vars.sla == "mailonly"
+}
+apply Notification "mail-icingaadmin" to Host {
+  import "mail-host-notification"
+  user_groups = [ "pikett1", "pikett2" ]
+
+  interval = 0 // disable re-notification
+
+  assign where host.vars.sla == "premium"
+  assign where host.vars.sla == "standard"
+  assign where host.vars.sla == "mailonly"
+}
+
+{% if icinga2_master_twilio_sms_enabled|bool == true %}
+# SMS Premium Pikett 1
+apply Notification "sms-premium-1st-level" to Host {
+  import "twilio-sms-host-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 5m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+apply Notification "sms-premium-1st-level" to Service {
+  import "twilio-sms-service-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 5m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+# SMS Premium Pikett 2
+apply Notification "sms-premium-2nd-level" to Host {
+  import "twilio-sms-host-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 15m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+apply Notification "sms-premium-2nd-level" to Service {
+  import "twilio-sms-service-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 15m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+# SMS Standard Pikett 1
+apply Notification "sms-standard-1st-level" to Host {
+  import "twilio-sms-host-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 5m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+apply Notification "sms-standard-1st-level" to Service {
+  import "twilio-sms-service-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 5m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+# SMS Standard Pikett 2
+apply Notification "sms-standard-2nd-level" to Host {
+  import "twilio-sms-host-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 15m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+apply Notification "sms-standard-2nd-level" to Service {
+  import "twilio-sms-service-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 15m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+{% endif %}
+
+{% if icinga2_master_twilio_phone_enabled|bool == true %}
+# Phone Premium Pikett 1
+apply Notification "phone-premium-1st-level" to Host {
+  import "twilio-phone-host-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 10m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+apply Notification "phone-premium-1st-level" to Service {
+  import "twilio-phone-service-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 10m
+  times.end = 1h
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+# Phone Premium Pikett 2
+apply Notification "phone-premium-2nd-level" to Host {
+  import "twilio-phone-host-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 20m
+  times.end = 62m
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+apply Notification "phone-premium-2nd-level" to Service {
+  import "twilio-phone-service-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 20m
+  times.end = 62m
+  interval = 20m
+  period = "premium"
+  assign where host.vars.sla == "premium"
+}
+# Phone Standard Pikett 1
+apply Notification "phone-standard-1st-level" to Host {
+  import "twilio-phone-host-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 10m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+apply Notification "phone-standard-1st-level" to Service {
+  import "twilio-phone-service-notification"
+  user_groups = [ "pikett1" ]
+
+  times.begin = 10m
+  times.end = 1h
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+# Phone Standard Pikett 2
+apply Notification "phone-standard-2nd-level" to Host {
+  import "twilio-phone-host-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 20m
+  times.end = 62m
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+apply Notification "phone-standard-2nd-level" to Service {
+  import "twilio-phone-service-notification"
+  user_groups = [ "pikett2" ]
+
+  times.begin = 20m
+  times.end = 62m
+  interval = 20m
+  period = "standard"
+  assign where host.vars.sla == "standard"
+}
+{% endif %}
+

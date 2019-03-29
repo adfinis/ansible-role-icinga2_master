@@ -39,6 +39,38 @@ Role Variables
   #    permissions: 'actions/generate-ticket'
 
 
+If you want to use `Twilio <https://www.twilio.com>`_ for the alerting, you
+can create an account. After that, you can receive an Application SID and
+Auth token from the twilio console. If you plan to make phone calls, please
+create a `TwiML <https://www.twilio.com/docs/voice/twiml>`_ application.
+
+.. code-block:: yaml
+
+  ## Twilio alerting
+
+  # The account sid from https://www.twilio.com/console
+  #icinga2_master_twilio_account_sid: 'account_sid'
+  
+  # The auth token from https://www.twilio.com/console
+  #icinga2_master_twilio_auth_token: 'auth_token'
+  
+  # Whether twilio sms are enabled or not
+  icinga2_master_twilio_sms_enabled: False
+  
+  # The twilio phone numer used to send sms
+  #icinga2_master_twilio_sms_from: '+41123456789'
+  
+  # Whether twilio calls are enabled or not
+  icinga2_master_twilio_phone_enabled: False
+  
+  # The twilio phone number used to make calls
+  #icinga2_master_twilio_phone_from: '+41123456789'
+  
+  # The twilio application sid on how to handle the call
+  # https://www.twilio.com/docs/voice/make-calls
+  #icinga2_master_twilio_phone_application_sid: 'application_sid'
+
+
 Dependencies
 =============
 
