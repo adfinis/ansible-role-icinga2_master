@@ -74,7 +74,7 @@ icinga2_master_servicegroups:
     display_name: 'Ping Checks'
     assignments:
       - match: 'ping*'
-        value: 'service.check_command'
+        value: 'service.name'
   - name: http
     display_name: 'HTTP Checks'
     assignments:
