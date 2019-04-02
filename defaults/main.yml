@@ -48,7 +48,7 @@ icinga2_master_users:
 icinga2_master_usergroups:
   - name: icingaadmins
     displayname: 'Icinga2 Admins'
-#icinga2_master_groups:
+#icinga2_master_usergroups:
 #  - name: groupname
 #    displayname: 'Group Name' # optional, defaults to an empty string
 #    groups: [] # optional, not set by default
