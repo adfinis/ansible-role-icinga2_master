@@ -32,7 +32,7 @@ object User "{{ user.name }}" {
 {% if user.groups is defined and user.groups|length %}
   groups = [ "{{ user.groups | join('", "') }}" ]
 {% endif %}
-{% if user.enable_notifications is defined and enable_notifications %}
+{% if user.enable_notifications is defined and user.enable_notifications %}
   enable_notifications = true
 {% else %}
   enable_notifications = false
