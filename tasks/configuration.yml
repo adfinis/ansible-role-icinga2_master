@@ -242,8 +242,7 @@
   loop: '{{ groups["monitoring-client"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
-  
-  
+
 - name: add our own host configuration
   template:
     src: templates/etc/icinga2/zones.d/generic_host.conf.j2
