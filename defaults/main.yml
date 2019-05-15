@@ -144,6 +144,8 @@ icinga2_master_db_root_pass: "passw0rd"
 # The URL from icingaweb2. Will be attached to the alerts
 #icinga2_master_alerting_icingaweb2url = "https://icinga2.example.com/icingaweb2"
 
+# The adress from which mails should be sent
+#icinga2_master_mail_from: "mail@example.com"
 
 ## Twilio alerting
 
