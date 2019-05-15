@@ -65,6 +65,9 @@ object NotificationCommand "mail-host-notification" {
     notification_hostoutput = "$host.output$"
     notification_hoststate = "$host.state$"
     notification_useremail = "$user.email$"
+{% if icinga2_master_mail_from is defined %}
+    notification_from = "{{ icinga2_master_mail_from }}"
+{% endif %}
   }
 }
 
@@ -134,6 +137,9 @@ object NotificationCommand "mail-service-notification" {
     notification_servicestate = "$service.state$"
     notification_useremail = "$user.email$"
     notification_servicedisplayname = "$service.display_name$"
+{% if icinga2_master_mail_from is defined %}
+    notification_from = "{{ icinga2_master_mail_from }}"
+{% endif %}
   }
 }
 
