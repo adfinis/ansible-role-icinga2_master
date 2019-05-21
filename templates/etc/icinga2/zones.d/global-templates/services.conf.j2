@@ -126,3 +126,43 @@ apply Service "users" {
 
   assign where host.vars.os == "Linux"
 }
+
+apply Service for (imap_host => config in host.vars.imap_hosts) {
+  import "generic-service"
+
+  check_command = "imap"
+
+  vars += config
+}
+
+apply Service for (smtp_host => config in host.vars.smtp_hosts) {
+  import "generic-service"
+
+  check_command = "smtp"
+
+  vars += config
+}
+
+apply Service for (ldap_host => config in host.vars.ldap_hosts) {
+  import "generic-service"
+
+  check_command = "ldap"
+
+  vars += config
+}
+
+apply Service for (mysql_host => config in host.vars.mysql_hosts) {
+  import "generic-service"
+
+  check_command = "mysql"
+
+  vars += config
+}
+
+apply Service for (redis_host => config in host.vars.redis_hosts) {
+  import "generic-service"
+
+  check_command = "redis"
+
+  vars += config
+}
