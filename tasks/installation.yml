@@ -35,8 +35,9 @@
     ssl_ca: '{{ icinga2_master_ca_path }}'
     state: import
     target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
-  run_once: True
-  when: icinga2_master_register_icinga2_imported.rc == 1 and icinga2_master_ido_enabled
+  run_once: true
+  when: icinga2_master_ido_enabled and
+        icinga2_master_register_icinga2_imported.rc == 1
 
 - name: create a user with access only to the ido database using the root user
   mysql_user:
@@ -50,5 +51,6 @@
     login_password: '{{ icinga2_master_db_root_pass }}'
     ssl_ca: '{{ icinga2_master_ca_path }}'
     state: present
-  run_once: True
-  when: icinga2_master_register_icinga2_imported.rc == 1 and icinga2_master_ido_enabled
+  run_once: true
+  when: icinga2_master_ido_enabled and
+        icinga2_master_register_icinga2_imported.rc == 1
