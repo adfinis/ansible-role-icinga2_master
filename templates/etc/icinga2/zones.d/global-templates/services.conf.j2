@@ -69,6 +69,16 @@ apply Service for (http_vhost => config in host.vars.http_vhosts) {
   assign where host.vars.check_http == true
 }
 
+apply Service for (tcp_check => config in host.vars.tcp_checks) {
+  import "generic-service"
+
+  check_command = "tcp"
+
+  vars += config
+
+  assign where host.vars.check_tcp == true
+}
+
 apply Service for (disk => config in host.vars.disks) {
   import "generic-service"
 
