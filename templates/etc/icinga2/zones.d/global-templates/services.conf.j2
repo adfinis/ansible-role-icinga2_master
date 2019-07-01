@@ -57,7 +57,13 @@ apply Service "ssh" {
   assign where (host.address || host.address6) && host.vars.os == "Linux"
 }
 
+apply Service for (by_ssh => config in host.vars.by_ssh) {
+  import "generic-service"
 
+  check_command = "by_ssh"
+
+  vars += config
+}
 
 apply Service for (http_vhost => config in host.vars.http_vhosts) {
   import "generic-service"
