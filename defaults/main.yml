@@ -139,6 +139,25 @@ icinga2_master_db_root_user: "user"
 icinga2_master_db_root_pass: "passw0rd" 
 
 
+## Template settings
+
+# If you have own templates for the configuration files in /etc/icinga2/conf.d
+# consider adjusting the names here and add your template to
+# templates/etc/icinga2/conf.d in the root of your playbook folder.
+icinga2_master_template_confd_apiusers: "api-users.conf"
+icinga2_master_template_confd_notifications: "notifications.conf"
+icinga2_master_template_confd_templates: "templates.conf"
+icinga2_master_template_confd_commands: "commands.conf"
+icinga2_master_template_confd_groups: "groups.conf"
+icinga2_master_template_confd_timeperiods: "timeperiods.conf"
+icinga2_master_template_confd_users: "users.conf"
+
+# These variables can be adjusted if you have custom templates for the global
+# templates directory which gets synced to all clients.
+icinga2_master_tempalte_globaltemplates_services: "services.conf"
+icinga2_master_tempalte_globaltemplates_templates: "templates.conf"
+
+
 ## Global alerting settings
 
 # The URL from icingaweb2. Will be attached to the alerts
