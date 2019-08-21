@@ -39,6 +39,28 @@ Role Variables
   #    permissions: 'actions/generate-ticket'
 
 
+Templates can be adjusted using variables.
+
+.. code-block:: yaml
+
+  ## Template settings
+
+  # If you have own templates for the configuration files in /etc/icinga2/conf.d
+  # consider adjusting the names here and add your template to
+  # templates/etc/icinga2/conf.d in the root of your playbook folder.
+  icinga2_master_template_confd_notifications: "notifications.conf"
+  icinga2_master_template_confd_templates: "templates.conf"
+  icinga2_master_template_confd_commands: "commands.conf"
+  icinga2_master_template_confd_groups: "groups.conf"
+  icinga2_master_template_confd_timeperiods: "timeperiods.conf"
+  icinga2_master_template_confd_users: "users.conf"
+
+  # These variables can be adjusted if you have custom templates for the global
+  # templates directory which gets synced to all clients.
+  icinga2_master_tempalte_globaltemplates_services: "services.conf"
+  icinga2_master_tempalte_globaltemplates_templates: "templates.conf"
+
+
 If you want to use `Twilio <https://www.twilio.com>`_ for the alerting, you
 can create an account. After that, you can receive an Application SID and
 Auth token from the twilio console. If you plan to make phone calls, please
