@@ -99,13 +99,13 @@
     setype: etc_t
     selevel: s0
   loop:
-    - api-users.conf
-    - commands.conf
-    - groups.conf
-    - notifications.conf
-    - templates.conf
-    - timeperiods.conf
-    - users.conf
+    - "{{ icinga2_master_template_confd_apiusers }}"
+    - "{{ icinga2_master_template_confd_notifications }}"
+    - "{{ icinga2_master_template_confd_templates }}"
+    - "{{ icinga2_master_template_confd_commands }}"
+    - "{{ icinga2_master_template_confd_groups }}"
+    - "{{ icinga2_master_template_confd_timeperiods }}"
+    - "{{ icinga2_master_template_confd_users }}"
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command
@@ -180,8 +180,8 @@
     setype: etc_t
     selevel: s0
   loop:
-    - services.conf
-    - templates.conf
+    - "{{ icinga2_master_tempalte_globaltemplates_services }}"
+    - "{{ icinga2_master_tempalte_globaltemplates_templates }}"
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
