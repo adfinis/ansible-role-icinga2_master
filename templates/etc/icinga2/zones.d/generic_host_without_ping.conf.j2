@@ -4,7 +4,7 @@
  */
 
 object Host "{{ hostvars[item].inventory_hostname }}" {
-  import "generic-host-without-ping"
+  import "generic-host"
 
 {% if hostvars[item].icinga2_master_client_address4 is defined %}
   address = "{{ hostvars[item].icinga2_master_client_address4 }}"
