@@ -257,6 +257,21 @@
   loop: '{{ groups["monitoring-master"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
+  
+- name: create host file per host for indirect satellites
+  template:
+    src: templates/etc/icinga2/zones.d/generic_host_without_ping.conf.j2
+    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    owner: icinga
+    group: icinga
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+  loop: '{{ groups["monitoring-sat"] }}'
+  notify: icinga2_master reload icinga2
+  when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: ensure that icinga2 is started and enabled on boot
   service:
