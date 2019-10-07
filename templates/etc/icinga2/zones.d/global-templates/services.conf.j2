@@ -34,7 +34,6 @@ apply Service "ping4" {
   check_command = "ping4"
 
   assign where host.address
-  ignore where host.check_command == "icinga"
 }
 
 apply Service "ping6" {
@@ -43,7 +42,6 @@ apply Service "ping6" {
   check_command = "ping6"
 
   assign where host.address6
-  ignore where host.check_command == "icinga"
 }
 
 /*
