@@ -15,6 +15,10 @@ object Host "{{ hostvars[item].inventory_hostname }}" {
   address6 = "{{ hostvars[item].icinga2_master_client_address6 }}"
 {% endif %}
 
+{% if hostvars[item].enable_notifications is defined and not hostvars[item].enable_notifications %}
+  enable_notifications = false
+{% endif %}
+
   vars.client_endpoint = name
 
 {% if hostvars[item].icinga2_vars is defined %}
