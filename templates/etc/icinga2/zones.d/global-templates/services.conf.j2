@@ -123,12 +123,12 @@ apply Service "load" {
   check_command = "load"
   command_endpoint = host.name
   vars.load_percpu = true
-  vars.load_wload1 = "0.9"
-  vars.load_wload5 = "0.7"
-  vars.load_wload15 = "0.5"
-  vars.load_cload1 = "1.0"
-  vars.load_cload5 = "0.8"
-  vars.load_cload15 = "0.6"
+  vars.load_wload1 = "2"
+  vars.load_wload5 = "1.5"
+  vars.load_wload15 = "1"
+  vars.load_cload1 = "3.75"
+  vars.load_cload5 = "2.5"
+  vars.load_cload15 = "1.5"
 
   assign where (host.address || host.address6) && host.vars.os == "Linux"
 }
