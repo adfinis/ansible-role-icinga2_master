@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
+#
+# Adfinis SyGroup AG
+# https://github.com/adfinis-sygroup/ansible-role-icinga2_master
+#
+# This script trigger telephone notifications using Twilio
+#
+# {{ ansible_managed }}
+
 
 account_sid="{{ icinga2_master_twilio_account_sid }}"
 auth_token="{{ icinga2_master_twilio_auth_token }}"
 phone_number="{{ icinga2_master_twilio_phone_from }}"
 application_sid="{{ icinga2_master_twilio_phone_application_sid }}"
-
-PROG="`basename $0`"
-ICINGA2HOST="`hostname`"
 
 ## Function helpers
 Usage() {
@@ -18,16 +23,16 @@ EOF
 }
 
 Help() {
-  Usage;
-  exit 0;
+  Usage
+  exit 0
 }
 
 Error() {
-  if [ "$1" ]; then
-    echo $1
+  if [ "$1" ] ; then
+    echo "$1"
   fi
-  Usage;
-  exit 1;
+  Usage
+  exit 1
 }
 
 ## Main
@@ -47,7 +52,7 @@ done
 
 shift $((OPTIND - 1))
 
-## Keep formatting in sync with mail-service-notification.sh
+# shellcheck disable=SC2043
 for P in USERPHONE ; do
 	eval "PAR=\$${P}"
 
@@ -57,12 +62,10 @@ for P in USERPHONE ; do
 done
 
 ## Send the sms using the Twilio API
-echo "sent call to ${USERPHONE} now: $(date -u)" >> ./logfile.log
+echo "sent call to ${USERPHONE} now: $(date -u)" >> /var/log/icinga2/twilio.log
 
-curl -X POST \
-  https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Calls.json \
-  --data-urlencode "ApplicationSid=AP5a83e505ac094ceca073770aacadb825" \
+curl -s -X POST -u "${account_sid}:${auth_token}" \
+  https://api.twilio.com/2010-04-01/Accounts/"${account_sid}"/Calls.json \
+  --data-urlencode "ApplicationSid=${application_sid}" \
   --data-urlencode "To=${USERPHONE}" \
-  --data-urlencode "From=${phone_number}" \
-  -u ${account_sid}:${auth_token}
-
+  --data-urlencode "From=${phone_number}"
