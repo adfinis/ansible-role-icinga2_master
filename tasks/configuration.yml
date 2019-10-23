@@ -2,7 +2,7 @@
 
 - name: configure icinga2 ido feature
   template:
-    src: templates/etc/icinga2/features-available/ido-mysql.conf.j2
+    src: etc/icinga2/features-available/ido-mysql.conf.j2
     dest: /etc/icinga2/features-available/ido-mysql.conf
     owner: icinga
     group: icinga
@@ -22,7 +22,7 @@
 
 - name: install icinga2 configuration
   template:
-    src: templates/etc/icinga2/icinga2.conf.j2
+    src: etc/icinga2/icinga2.conf.j2
     dest: /etc/icinga2/icinga2.conf
     owner: icinga
     group: icinga
@@ -35,7 +35,7 @@
 
 - name: install icinga2 constants configuration
   template:
-    src: templates/etc/icinga2/constants.conf.j2
+    src: etc/icinga2/constants.conf.j2
     dest: /etc/icinga2/constants.conf
     owner: icinga
     group: icinga
@@ -58,8 +58,8 @@
 # Twilio configuration
 - name: install twilio sms scripts
   template:
-    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
-    dest: '/etc/icinga2/scripts/{{ item }}'
+    src: etc/icinga2/scripts/{{ item }}.j2
+    dest: /etc/icinga2/scripts/{{ item }}
     owner: icinga
     group: icinga
     mode: 0755
@@ -74,14 +74,14 @@
 
 - name: install twilio phone script
   template:
-    src: 'templates/etc/icinga2/scripts/{{ item }}.j2'
-    dest: '/etc/icinga2/scripts/{{ item }}'
+    src: etc/icinga2/scripts/{{ item }}.j2
+    dest: /etc/icinga2/scripts/{{ item }}
     owner: icinga
     group: icinga
     mode: 0755
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: nagios_notification_plugin_exec_t
     selevel: s0
   loop:
     - twilio-phone-notification.sh
@@ -89,8 +89,8 @@
 
 - name: install icinga2 conf.d configurations
   template:
-    src: 'templates/etc/icinga2/conf.d/{{ item }}.j2'
-    dest: '/etc/icinga2/conf.d/{{ item }}'
+    src: etc/icinga2/conf.d/{{ item }}.j2
+    dest: /etc/icinga2/conf.d/{{ item }}
     owner: icinga
     group: icinga
     mode: 0640
@@ -116,7 +116,7 @@
 
 - name: configure icinga2 api feature
   template:
-    src: templates/etc/icinga2/features-available/api.conf.j2
+    src: etc/icinga2/features-available/api.conf.j2
     dest: /etc/icinga2/features-available/api.conf
     owner: icinga
     group: icinga
@@ -134,7 +134,7 @@
 
 - name: configure icinga2 graphite feature
   template:
-    src: templates/etc/icinga2/features-available/graphite.conf.j2
+    src: etc/icinga2/features-available/graphite.conf.j2
     dest: /etc/icinga2/features-available/graphite.conf
     owner: icinga
     group: icinga
@@ -170,7 +170,7 @@
 
 - name: create global template configurations
   template:
-    src: templates/etc/icinga2/zones.d/global-templates/{{ item }}.j2
+    src: etc/icinga2/zones.d/global-templates/{{ item }}.j2
     dest: /etc/icinga2/zones.d/global-templates/{{ item }}
     owner: icinga
     group: icinga
@@ -187,7 +187,7 @@
 
 - name: create global zones configuration
   template:
-    src: templates/etc/icinga2/zones.conf.j2
+    src: etc/icinga2/zones.conf.j2
     dest: /etc/icinga2/zones.conf
     owner: icinga
     group: icinga
@@ -200,7 +200,7 @@
 
 - name: create zone configuration directory for each host
   file:
-    path: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}'
+    path: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}
     state: directory
     owner: icinga
     group: icinga
@@ -215,8 +215,8 @@
 
 - name: create zone file for each zone
   template:
-    src: templates/etc/icinga2/zones.d/generic_zone.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf'
+    src: etc/icinga2/zones.d/generic_zone.conf.j2
+    dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf
     owner: icinga
     group: icinga
     mode: 0640
@@ -230,8 +230,8 @@
 
 - name: create host file per host
   template:
-    src: templates/etc/icinga2/zones.d/generic_host.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    src: etc/icinga2/zones.d/generic_host.conf.j2
+    dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf
     owner: icinga
     group: icinga
     mode: 0640
@@ -245,8 +245,8 @@
 
 - name: add our own host configuration
   template:
-    src: templates/etc/icinga2/zones.d/generic_host.conf.j2
-    dest: '/etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf'
+    src: etc/icinga2/zones.d/generic_host.conf.j2
+    dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf
     owner: icinga
     group: icinga
     mode: 0640

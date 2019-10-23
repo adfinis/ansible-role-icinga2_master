@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
+#
+# Adfinis SyGroup AG
+# https://github.com/adfinis-sygroup/ansible-role-icinga2_master
+#
+# This script trigger service SMS notifications using Twilio
+#
+# {{ ansible_managed }}
 
 account_sid="{{ icinga2_master_twilio_account_sid }}"
 auth_token="{{ icinga2_master_twilio_auth_token }}"
 phone_number="{{ icinga2_master_twilio_sms_from }}"
 
-PROG="`basename $0`"
+PROG="$(basename "$0")"
 
 ## Function helpers
 Usage() {
@@ -30,16 +37,16 @@ EOF
 }
 
 Help() {
-  Usage;
-  exit 0;
+  Usage
+  exit 0
 }
 
 Error() {
-  if [ "$1" ]; then
-    echo $1
+  if [ "$1" ] ; then
+    echo "$1"
   fi
-  Usage;
-  exit 1;
+  Usage
+  exit 1
 }
 
 {% raw %}
@@ -83,24 +90,24 @@ shift $((OPTIND - 1))
 
 ## Keep formatting in sync with mail-host-notification.sh
 for P in LONGDATETIME HOSTNAME HOSTDISPLAYNAME SERVICENAME SERVICEDISPLAYNAME SERVICEOUTPUT SERVICESTATE USERPHONE NOTIFICATIONTYPE ; do
-        eval "PAR=\$${P}"
+  eval "PAR=\$${P}"
 
-        if [ ! "$PAR" ] ; then
-                Error "Required parameter '$P' is missing."
-        fi
+  if [ ! "$PAR" ] ; then
+    Error "Required parameter '$P' is missing."
+  fi
 done
 
 ## Build the message's subject
 SUBJECT="[$NOTIFICATIONTYPE] $SERVICEDISPLAYNAME on $HOSTDISPLAYNAME is $SERVICESTATE!"
 
 ## Build the notification message
-NOTIFICATION_MESSAGE=`cat << EOF
+NOTIFICATION_MESSAGE=$(cat << EOF
 [$SERVICESTATE] $SERVICEDISPLAYNAME on $HOSTDISPLAYNAME
 
 Info:    $SERVICEOUTPUT
 When:    $LONGDATETIME
 EOF
-`
+)
 
 ## Check whether Icinga Web 2 URL was specified.
 if [ -n "$ICINGAWEB2URL" ] ; then
@@ -116,11 +123,10 @@ fi
 
 
 ## Send the call using the Twilio API
-echo "sent sms to ${your_number} now: $(date -u)" >> ./logfile.log
+echo "sent sms to ${phone_number} now: $(date -u)" >> /var/log/icinga2/twilio.log
 
-curl -X POST -u "${account_sid}:${auth_token}" \
+curl -s -X POST -u "${account_sid}:${auth_token}" \
   -d "Body=${NOTIFICATION_MESSAGE}" \
   -d "From=${phone_number}" \
   -d "To=${USERPHONE}" \
   "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages"
-

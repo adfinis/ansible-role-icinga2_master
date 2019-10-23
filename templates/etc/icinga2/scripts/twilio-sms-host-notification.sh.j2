@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
+#
+# Adfinis SyGroup AG
+# https://github.com/adfinis-sygroup/ansible-role-icinga2_master
+#
+# This script trigger host SMS notifications using Twilio
+#
+# {{ ansible_managed }}
 
 account_sid="{{ icinga2_master_twilio_account_sid }}"
 auth_token="{{ icinga2_master_twilio_auth_token }}"
 phone_number="{{ icinga2_master_twilio_sms_from }}"
 
-PROG="`basename $0`"
+PROG="$(basename "$0")"
 
 ## Function helpers
 Usage() {
@@ -29,16 +36,16 @@ EOF
 }
 
 Help() {
-  Usage;
-  exit 0;
+  Usage
+  exit 0
 }
 
 Error() {
   if [ "$1" ]; then
-    echo $1
+    echo "$1"
   fi
-  Usage;
-  exit 1;
+  Usage
+  exit 1
 }
 
 {% raw %}
@@ -91,13 +98,13 @@ done
 SUBJECT="[$NOTIFICATIONTYPE] Host $HOSTDISPLAYNAME is $HOSTSTATE!"
 
 ## Build the notification message
-NOTIFICATION_MESSAGE=`cat << EOF
+NOTIFICATION_MESSAGE=$(cat << EOF
 [$HOSTSTATE] $HOSTDISPLAYNAME
 
 Info:    $HOSTOUTPUT
 When:    $LONGDATETIME
 EOF
-`
+)
 
 ## Check whether Icinga Web 2 URL was specified.
 if [ -n "$ICINGAWEB2URL" ] ; then
@@ -113,11 +120,10 @@ fi
 
 
 ## Send the sms using the Twilio API
-echo "sent sms to ${your_number} now: $(date -u)" >> ./logfile.log
+echo "sent sms to ${phone_number} now: $(date -u)" >> /var/log/icinga2/twilio.log
 
-curl -X POST -u "${account_sid}:${auth_token}" \
+curl -s -X POST -u "${account_sid}:${auth_token}" \
   -d "Body=${NOTIFICATION_MESSAGE}" \
   -d "From=${phone_number}" \
   -d "To=${USERPHONE}" \
   "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages"
-<Paste>
