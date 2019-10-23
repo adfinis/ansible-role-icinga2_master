@@ -81,7 +81,7 @@
     mode: 0755
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: nagios_notification_plugin_exec_t
     selevel: s0
   loop:
     - twilio-phone-notification.sh
