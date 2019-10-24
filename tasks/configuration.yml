@@ -179,9 +179,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop:
-    - "{{ icinga2_master_tempalte_globaltemplates_services }}"
-    - "{{ icinga2_master_tempalte_globaltemplates_templates }}"
+  loop: "{{ icinga2_master_template_globaltemplates }}"
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
