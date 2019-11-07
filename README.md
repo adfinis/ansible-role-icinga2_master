@@ -87,9 +87,11 @@ icinga2_master_twilio_phone_enabled: False
 # The twilio phone number used to make calls
 #icinga2_master_twilio_phone_from: '+41123456789'
 
-# The twilio application sid on how to handle the call
+# The twilio application on how to handle the call. You can either choose 
+# application sid or appication url. Choose only one. default is not defined.
 # https://www.twilio.com/docs/voice/make-calls
 #icinga2_master_twilio_phone_application_sid: 'application_sid'
+#icinga2_master_twilio_phone_application_url: 'application_url'
 ```
 
 Dependencies
