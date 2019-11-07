@@ -4,7 +4,7 @@
   package:
     name: '{{ icinga2_master_ido_packages }}'
     state: present
-  when: icinga2_master_ido_enabled
+  when: icinga2_master_ido_enabled|bool
   register: icinga2_master_register_packages_installed
   until: icinga2_master_register_packages_installed is success
   retries: 10
@@ -23,7 +23,7 @@
   register: icinga2_master_register_icinga2_imported
   changed_when: icinga2_master_register_icinga2_imported.rc == 1
   failed_when: "'Access denied for' in icinga2_master_register_icinga2_imported.stderr"
-  when: icinga2_master_ido_enabled
+  when: icinga2_master_ido_enabled|bool
 
 - name: import icinga2 ido database schema using the root user
   mysql_db:
@@ -36,7 +36,7 @@
     state: import
     target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
   run_once: true
-  when: icinga2_master_ido_enabled and
+  when: icinga2_master_ido_enabled|bool and
         icinga2_master_register_icinga2_imported.rc == 1
 
 - name: create a user with access only to the ido database using the root user
@@ -52,5 +52,5 @@
     ssl_ca: '{{ icinga2_master_ca_path }}'
     state: present
   run_once: true
-  when: icinga2_master_ido_enabled and
+  when: icinga2_master_ido_enabled|bool and
         icinga2_master_register_icinga2_imported.rc == 1
