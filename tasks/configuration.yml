@@ -207,7 +207,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop: '{{ groups["monitoring-client"] }}'
+  loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
@@ -222,7 +222,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop: '{{ groups["monitoring-client"] }}'
+  loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
@@ -237,7 +237,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop: '{{ groups["monitoring-client"] }}'
+  loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
@@ -252,7 +252,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop: '{{ groups["monitoring-master"] }}'
+  loop: '{{ groups["monitoring_master"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
