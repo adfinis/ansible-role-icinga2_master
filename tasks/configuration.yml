@@ -11,14 +11,14 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  when: icinga2_master_ido_enabled
+  when: icinga2_master_ido_enabled|bool
 
 - name: enable icinga2 ido feature
   file:
     src: /etc/icinga2/features-available/ido-mysql.conf
     dest: /etc/icinga2/features-enabled/ido-mysql.conf
     state: link
-  when: icinga2_master_ido_enabled
+  when: icinga2_master_ido_enabled|bool
 
 - name: install icinga2 configuration
   template:
@@ -70,7 +70,7 @@
   loop:
     - twilio-sms-host-notification.sh
     - twilio-sms-service-notification.sh
-  when: icinga2_master_twilio_sms_enabled
+  when: icinga2_master_twilio_sms_enabled|bool
 
 - name: install twilio phone script
   template:
@@ -85,7 +85,7 @@
     selevel: s0
   loop:
     - twilio-phone-notification.sh
-  when: icinga2_master_twilio_phone_enabled
+  when: icinga2_master_twilio_phone_enabled|bool
 
 - name: install icinga2 conf.d configurations
   template:
@@ -143,7 +143,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  when: icinga2_master_graphite_enabled
+  when: icinga2_master_graphite_enabled|bool
   notify: icinga2_master reload icinga2
 
 - name: enable icinga2 graphite feature
@@ -151,7 +151,7 @@
     src: /etc/icinga2/features-available/graphite.conf
     dest: /etc/icinga2/features-enabled/graphite.conf
     state: link
-  when: icinga2_master_graphite_enabled
+  when: icinga2_master_graphite_enabled|bool
   notify: icinga2_master reload icinga2
 
 # Global Icinga2 configuration
