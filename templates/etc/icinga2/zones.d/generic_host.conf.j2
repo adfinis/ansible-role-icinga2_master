@@ -18,6 +18,10 @@ object Host "{{ hostvars[item].inventory_hostname }}" {
   check_command = "{{ hostvars[item].check_command }}"
 {% endif %}
 
+{% if hostvars[item].enable_notifications is defined and not hostvars[item].enable_notifications %}
+  enable_notifications = false
+{% endif %}
+
   vars.client_endpoint = name
 
 {% if hostvars[item].icinga2_vars is defined %}
