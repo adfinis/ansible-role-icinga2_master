@@ -21,6 +21,14 @@ object Host "{{ hostvars[item].inventory_hostname }}" {
 {% if hostvars[item].enable_notifications is defined and not hostvars[item].enable_notifications %}
   enable_notifications = false
 {% endif %}
+{# In case the `icinga2_client_notes` is defined, add the note to the config #}
+{% if hostvars[item].icinga2_client_notes is defined %}
+  notes = {{ hostvars[item].icinga2_client_notes }}
+{% endif %}
+{# In case the `icinga2_client_notes_url` is defined, add the note to the config #}
+{% if hostvars[item].icinga2_client_notes_url is defined %}
+  notes_url = {{ hostvars[item].icinga2_client_notes_url }}
+{% endif %}
 
   vars.client_endpoint = name
 
