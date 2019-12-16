@@ -5,11 +5,11 @@
 
 {% for hostgroup in icinga2_master_hostgroups %}
 object HostGroup "{{ hostgroup.name }}" {
-{% if hostgroup.display_name %}
+{% if 'display_name' in hostgroup %}
   display_name = "{{ hostgroup.display_name }}"
 {% endif %}
 {% for assignment in hostgroup.assignments %}
-{% if assignment.value %}
+{% if 'value' in assignment %}
   assign where {{ assignment.var }} == "{{ assignment.value }}"
 {% else %}
   assign where match("{{ assignment.match }}", {{ assignment.var }})
@@ -20,7 +20,7 @@ object HostGroup "{{ hostgroup.name }}" {
 
 {% for servicegroup in icinga2_master_servicegroups %}
 object ServiceGroup "{{ servicegroup.name }}" {
-{% if servicegroup.display_name %}
+{% if 'display_name' in servicegroup %}
   display_name = "{{ servicegroup.display_name }}"
 {% endif %}
 {% for assignment in servicegroup.assignments %}
