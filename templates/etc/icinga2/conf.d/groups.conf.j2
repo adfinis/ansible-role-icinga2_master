@@ -9,7 +9,11 @@ object HostGroup "{{ hostgroup.name }}" {
   display_name = "{{ hostgroup.display_name }}"
 {% endif %}
 {% for assignment in hostgroup.assignments %}
+{% if assignment.value %}
   assign where {{ assignment.var }} == "{{ assignment.value }}"
+{% else %}
+  assign where match("{{ assignment.match }}", {{ assignment.var }})
+{% endif %}
 {% endfor %}
 }
 {% endfor %}
