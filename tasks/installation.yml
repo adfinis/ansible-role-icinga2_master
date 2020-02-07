@@ -24,6 +24,7 @@
   changed_when: icinga2_master_register_icinga2_imported.rc == 1
   failed_when: "'Access denied for' in icinga2_master_register_icinga2_imported.stderr"
   when: icinga2_master_ido_enabled|bool
+  check_mode: no
 
 - name: import icinga2 ido database schema using the root user
   mysql_db:
