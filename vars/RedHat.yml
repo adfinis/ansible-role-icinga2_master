@@ -1,7 +1,7 @@
 ---
 
-icinga2_user: "icinga"
-icinga2_group: "icinga"
+icinga2_master_owner: "icinga"
+icinga2_master_group: "icinga"
 
 icinga2_master_ido_packages:
   - "MySQL-python"
