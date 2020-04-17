@@ -27,3 +27,18 @@ object Zone "{{ icinga2_master_client_parent_zone }}" {
 object Zone "global-templates" {
   global = true
 }
+
+/*
+ * Satellite Zones
+ */
+{% for item in groups["monitoring_sat"] %}
+
+object Endpoint "{{ item }}" {
+}
+
+object Zone "{{ item }}" {
+  endpoints = [ "{{ item }}" ]
+
+  parent = "{{ icinga2_master_client_parent_zone }}"
+}
+{% endfor %}
