@@ -198,7 +198,7 @@
 
 - name: create zone configuration directory for each host
   file:
-    path: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}
+    path: /etc/icinga2/zones.d/{{ hostvars[item].inventory_hostname }}
     state: directory
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
@@ -207,7 +207,7 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-  loop: '{{ groups["monitoring_client"] }}'
+  loop: '{{ groups["monitoring_sat"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
@@ -224,7 +224,7 @@
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0]
+  when: inventory_hostname == icinga2_client_monitoring_parents[0] and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
 
 - name: create host file per host
   template:
