@@ -9,7 +9,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_ido_enabled|bool
 
@@ -29,7 +29,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
@@ -42,7 +42,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
@@ -96,7 +96,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop:
     - "{{ icinga2_master_template_confd_apiusers }}"
@@ -123,7 +123,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
 
 - name: enable icinga2 api feature
@@ -141,7 +141,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_graphite_enabled|bool
   notify: icinga2_master reload icinga2
@@ -163,7 +163,7 @@
     mode: 0755
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
     state: directory
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
@@ -177,7 +177,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop: "{{ icinga2_master_template_globaltemplates }}"
   notify: icinga2_master reload icinga2
@@ -192,7 +192,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
@@ -205,7 +205,7 @@
     mode: 0755
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_sat"] }}'
   notify: icinga2_master reload icinga2
@@ -220,7 +220,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
@@ -235,7 +235,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
@@ -250,7 +250,7 @@
     mode: 0640
     seuser: system_u
     serole: object_r
-    setype: etc_t
+    setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_master"] }}'
   notify: icinga2_master reload icinga2
