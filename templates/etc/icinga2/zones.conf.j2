@@ -24,10 +24,12 @@ object Zone "{{ icinga2_master_client_parent_zone }}" {
   endpoints = [ "{{ icinga2_client_monitoring_parents |  join('", "') }}" ]
 }
 
-object Zone "global-templates" {
+{% for item in icinga2_master_global_zones %}
+object Zone "{{ item }}" {
   global = true
 }
 
+{% endfor %}
 /*
  * Satellite Zones
  */

@@ -158,6 +158,9 @@ icinga2_master_template_globaltemplates:
   - "services.conf"
   - "templates.conf"
 
+# Global Zones to be added to zones.conf
+icinga2_master_global_zones:
+  - global-templates
 
 ## Global alerting settings
 
