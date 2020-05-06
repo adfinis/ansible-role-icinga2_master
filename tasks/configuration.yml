@@ -209,7 +209,9 @@
     selevel: s0
   loop: '{{ groups["monitoring_sat"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0]
+  when: >
+      inventory_hostname == icinga2_client_monitoring_parents[0]
+      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
 - name: create zone file for each zone
   template:
@@ -224,7 +226,10 @@
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0] and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
+  when: >
+      inventory_hostname == icinga2_client_monitoring_parents[0]
+      and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
+      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
 - name: create host file per host
   template:
@@ -239,7 +244,9 @@
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0]
+  when: >
+      inventory_hostname == icinga2_client_monitoring_parents[0]
+      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
 - name: add our own host configuration
   template:
