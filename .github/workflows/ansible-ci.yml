@@ -26,10 +26,11 @@ jobs:
       - name: ansible-lint
         uses: ansible/ansible-lint-action@master
         with:
-          targets: "icinga2_master"
+          targets: icinga2_master
           args: "-R -r lint-rules"
 
       - name: yamllint
-        uses: karancode/yamllint-github-action@v1.0.0
+        uses: karancode/yamllint-github-action@v2.0.0
         with:
           yamllint_config_filepath: icinga2_master/.testenv/yamllint.yml
+          yamllint_file_or_dir: icinga2_master
