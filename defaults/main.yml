@@ -136,7 +136,7 @@ icinga2_master_icinga2_database_hostpattern: 'localhost'
 icinga2_master_db_root_user: "user"
 
 # icinga2 database root password
-icinga2_master_db_root_pass: "passw0rd" 
+icinga2_master_db_root_pass: "passw0rd"
 
 
 ## Template settings
