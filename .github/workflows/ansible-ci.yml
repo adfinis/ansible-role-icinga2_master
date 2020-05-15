@@ -1,4 +1,5 @@
-name: CI
+---
+name: CI - Linting
 
 on:
   push:
@@ -12,20 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          path: icinga2_master
 
-    # Checkout Adfinis lint-rules
-    - uses: actions/checkout@v2
-      with:
-        repository:  https://github.com/adfinis-sygroup/ansible-lint-rules
-        path: ../lint-rules
+      # Checkout Adfinis lint-rules
+      - uses: actions/checkout@v2
+        with:
+          repository: adfinis-sygroup/ansible-lint-rules
+          path: lint-rules
 
-    - name: ansible-lint
-      uses: ansible/ansible-lint-action@v4.1.0.post0
-      with:
-        args: "-R -r ../lint-rules"
+      - name: ansible-lint
+        uses: ansible/ansible-lint-action@master
+        with:
+          targets: icinga2_master
+          args: "-R -r lint-rules"
 
-    - name: yamllint
-      uses: karancode/yamllint-github-action@v1.0.0
-      with:
-        yamllint_config_filepath: .testenv/yamllint.yml
+      - name: yamllint
+        uses: karancode/yamllint-github-action@v2.0.0
+        with:
+          yamllint_config_filepath: icinga2_master/.testenv/yamllint.yml
+          yamllint_file_or_dir: icinga2_master
