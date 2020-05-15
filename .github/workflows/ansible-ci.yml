@@ -18,12 +18,13 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository:  adfinis-sygroup/ansible-lint-rules
-        path: ../lint-rules
+        path: lint-rules
 
     - name: ansible-lint
-      uses: ansible/ansible-lint-action@v4.1.0.post0
+      uses: ansible/ansible-lint-action@master
       with:
-        args: "-R -r ../lint-rules"
+        targets: "."
+        args: "-R -r lint-rules"
 
     - name: yamllint
       uses: karancode/yamllint-github-action@v1.0.0
