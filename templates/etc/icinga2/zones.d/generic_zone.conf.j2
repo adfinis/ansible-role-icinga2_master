@@ -6,6 +6,7 @@
 object Endpoint "{{ hostvars[item].inventory_hostname }}" {
 {% if hostvars[item].icinga2_master_client_hostname is defined %}
   host = "{{ hostvars[item].icinga2_master_client_hostname }}"
+{% elif 'check_command' in hostvars[item] and hostvars[item].check_command == 'dummy' %}
 {% else %}
   host = name
 {% endif %}
