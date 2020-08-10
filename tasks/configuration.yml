@@ -262,6 +262,7 @@
   loop: '{{ groups["monitoring_master"] }}'
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
+        and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
 - name: ensure that icinga2 is started and enabled on boot
   service:
