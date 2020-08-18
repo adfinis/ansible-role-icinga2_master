@@ -92,10 +92,18 @@ icinga2_master_servicegroups: []
 icinga2_master_api_users: []
 #  - username: root
 #    password: 'passw0rd'
-#    permissions: '*'
+#    permissions:
+#    - '*'
 #  - username: token-generator
 #    password: 'passw0rd'
-#    permissions: 'actions/generate-ticket'
+#    permissions:
+#    - 'actions/generate-ticket'
+#  - username: bareos
+#    client_cn: "bareos.example.com"
+#    permissions:
+#    - "actions/schedule-downtime"
+#    - "actions/remove-downtime"
+#    - "actions/process-check-result"
 
 # Enable the graphite writer feature
 icinga2_master_graphite_enabled: False
