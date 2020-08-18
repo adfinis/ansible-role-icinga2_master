@@ -1,11 +1,15 @@
 /**
  *  {{ ansible_managed }}
- *  Configuration from Icinga2 version r2.10.2-1
  */
 
 {% for user in icinga2_master_api_users %}
 object ApiUser "{{ user.username }}" {
+{% if user.password is defined %}
   password = "{{ user.password }}"
-  permissions = [ "{{ user.permissions }}" ]
+{% endif %}
+{% if user.client_cn is defined %}
+  client_cn = "{{ user.client_cn }}"
+{% endif %}
+  permissions = {{ user.permissions | to_json }}
 }
 {% endfor %}
