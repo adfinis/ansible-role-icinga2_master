@@ -96,6 +96,11 @@ icinga2_master_api_users: []
 #  - username: token-generator
 #    password: 'passw0rd'
 #    permissions: 'actions/generate-ticket'
+#  - username: foo
+#    password: 'passw0rd'
+#    permissions:
+#    - name: 'actions/generate-ticket'
+#      filter: '"host.name" == "bar"'
 
 # Enable the graphite writer feature
 icinga2_master_graphite_enabled: False
