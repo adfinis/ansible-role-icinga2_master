@@ -51,7 +51,7 @@
     dest: '{{ item }}'
     content: ""
     force: yes
-    mode: 0640
+    mode: 0644
   loop:
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/hosts.conf
