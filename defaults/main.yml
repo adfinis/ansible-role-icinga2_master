@@ -92,10 +92,12 @@ icinga2_master_servicegroups: []
 icinga2_master_api_users: []
 #  - username: root
 #    password: 'passw0rd'
-#    permissions: '*'
+#    permissions:
+#    - name: '*'
 #  - username: token-generator
 #    password: 'passw0rd'
-#    permissions: 'actions/generate-ticket'
+#    permissions:
+#    - name: 'actions/generate-ticket'
 #  - username: foo
 #    password: 'passw0rd'
 #    permissions:
