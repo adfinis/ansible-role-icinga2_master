@@ -5,7 +5,12 @@
 
 {% for user in icinga2_master_api_users %}
 object ApiUser "{{ user.username }}" {
+{% if user.password is defined -%}
   password = "{{ user.password }}"
+{% endif -%}
+{% if user.client_cn is defined -%}
+  client_cn = "{{ user.client_cn }}"
+{% endif -%}
 {% if user.permissions is string %}
   permissions = [ "{{ user.permissions }}" ]
 {% else %}
