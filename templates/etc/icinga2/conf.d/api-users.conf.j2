@@ -5,7 +5,7 @@
 
 {% for user in icinga2_master_api_users %}
 object ApiUser "{{ user.username }}" {
-{% if user.password is defined -%}
+{% if user.password is defined %}
   password = "{{ user.password }}"
 {% endif -%}
 {% if user.client_cn is defined -%}
