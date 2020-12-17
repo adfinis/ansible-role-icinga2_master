@@ -104,6 +104,46 @@ icinga2_master_api_users: []
 #    - name: 'actions/generate-ticket'
 #      filter: '"host.name" == "bar"'
 
+# Icinga2 timeperiods
+icinga2_master_timeperiods:
+  - name: holidays
+    display_name: Holidays
+    ranges:
+      - day: "december 25"
+        time: 00:00-24:00
+  - name: premium
+    display_name: SLA Premium
+    ranges:
+      - day: monday
+        time: 00:00-24:00
+      - day: tuesday
+        time: 00:00-24:00
+      - day: wednesday
+        time: 00:00-24:00
+      - day: thursday
+        time: 00:00-24:00
+      - day: friday
+        time: 00:00-24:00
+      - day: saturday
+        time: 00:00-24:00
+      - day: sunday
+        time: 00:00-24:00
+  - name: standard
+    display_name: SLA Standard
+    ranges:
+      - day: monday
+        time: 08:00-18:00
+      - day: tuesday
+        time: 08:00-18:00
+      - day: wednesday
+        time: 08:00-18:00
+      - day: thursday
+        time: 08:00-18:00
+      - day: friday
+        time: 08:00-18:00
+    excludes:
+      - holidays
+
 # Enable the graphite writer feature
 icinga2_master_graphite_enabled: False
 
