@@ -107,6 +107,7 @@
     - "{{ icinga2_master_template_confd_groups }}"
     - "{{ icinga2_master_template_confd_timeperiods }}"
     - "{{ icinga2_master_template_confd_users }}"
+    - "{{ icinga2_master_template_confd_downtimes }}"
   notify: icinga2_master reload icinga2
 
 - name: execute icinga2 api setup command
