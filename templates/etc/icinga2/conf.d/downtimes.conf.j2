@@ -1,0 +1,24 @@
+/**
+ *  {{ ansible_managed }}
+ *  Configuration from Icinga2 version r2.10.4
+ *
+ *  Icinga2 service downtimes
+ */
+
+{% for downtime in icinga2_master_downtimes %}
+apply ScheduledDowntime "downtime-{{ downtime.name }}" to Service {
+  comment = "{{ downtime.comment }}"
+
+  ranges = {
+{% for range in downtime.ranges %}
+    "{{ range.day }}" = "{{ range.time }}"
+{% endfor %}
+  }
+
+  assign where host.name in [
+    "{{ downtime.hosts | join('",\n    "') }}"
+  ] && service.name in [
+    "{{ downtime.services | join('",\n    "') }}"
+  ]
+}
+{% endfor %}

@@ -37,6 +37,23 @@ icinga2_master_api_users: []
 #  - username: token-generator
 #    password: 'passw0rd'
 #    permissions: 'actions/generate-ticket'
+
+# List of recurring downtimes
+icinga2_master_downtimes: []
+#  - name: web-restart
+#    comment: Web service restart every Monday and Thursday noon
+#    ranges:
+#      - day: monday
+#        time: 12:00-12:20
+#      - day: thursday
+#        time: 12:00-12:20
+#    hosts:
+#      - web.example.org
+#      - web2.example.org
+#    services:
+#      - svc_remote_http
+#      - svc_remote_https
+#      - svc_local_procs_apache2
 ```
 
 Templates can be adjusted using variables.
@@ -53,6 +70,7 @@ icinga2_master_template_confd_commands: "commands.conf"
 icinga2_master_template_confd_groups: "groups.conf"
 icinga2_master_template_confd_timeperiods: "timeperiods.conf"
 icinga2_master_template_confd_users: "users.conf"
+icinga2_master_template_confd_downtimes: "downtimes.conf"
 
 # These variables can be adjusted if you have custom templates for the global
 # templates directory which gets synced to all clients.
