@@ -104,6 +104,31 @@ icinga2_master_api_users: []
 #    - name: 'actions/generate-ticket'
 #      filter: '"host.name" == "bar"'
 
+# A list of all recurring Icinga2 downtimes
+icinga2_master_downtimes: []
+#  - name: web-restart
+#    comment: Nightly Web service restart
+#    ranges:
+#      - day: monday
+#        time: 01:00-01:30
+#      - day: tuesday
+#        time: 01:00-01:30
+#      - day: wednesday
+#        time: 01:00-01:30
+#      - day: thursday
+#        time: 01:00-01:30
+#      - day: friday
+#        time: 01:00-01:30
+#      - day: saturday
+#        time: 01:00-01:30
+#      - day: sunday
+#        time: 01:00-01:30
+#    hosts: ['host.example.org']
+#    services:
+#      - svc_remote_http
+#      - svc_remote_https
+#      - svc_local_procs_apache2
+
 # Icinga2 timeperiods
 icinga2_master_timeperiods:
   - name: holidays
@@ -198,6 +223,7 @@ icinga2_master_template_confd_commands: "commands.conf"
 icinga2_master_template_confd_groups: "groups.conf"
 icinga2_master_template_confd_timeperiods: "timeperiods.conf"
 icinga2_master_template_confd_users: "users.conf"
+icinga2_master_template_confd_downtimes: "downtimes.conf"
 
 # These variables can be adjusted if you have custom templates for the global
 # templates directory which gets synced to all clients.
