@@ -6,7 +6,7 @@
  */
 
 {% for downtime in icinga2_master_downtimes %}
-apply ScheduledDowntime "downtime-{{ downtime.name }}" to Service {
+apply ScheduledDowntime "downtime-{{ downtime.name }}" to {{ 'Service' if downtime.services else 'Host' }} {
   comment = "{{ downtime.comment }}"
 
   ranges = {
@@ -15,8 +15,8 @@ apply ScheduledDowntime "downtime-{{ downtime.name }}" to Service {
 
   assign where host.name in [
     "{{ downtime.hosts | join('",\n    "') }}"
-  ] && service.name in [
+  ]{% if downtime.services %} && service.name in [
     "{{ downtime.services | join('",\n    "') }}"
-  ]
+  ]{% endif %}
 }
 {% endfor %}
