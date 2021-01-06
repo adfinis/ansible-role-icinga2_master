@@ -10,10 +10,8 @@ apply ScheduledDowntime "downtime-{{ downtime.name }}" to Service {
   comment = "{{ downtime.comment }}"
 
   ranges = {
-{% for range in downtime.ranges %}
-    "{{ range.day }}" = "{{ range.time }}"
-{% endfor %}
-  }
+{% for range in downtime.ranges %}    "{{ range.day }}" = "{{ range.time }}"
+{% endfor %}  }
 
   assign where host.name in [
     "{{ downtime.hosts | join('",\n    "') }}"
