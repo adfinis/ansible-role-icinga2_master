@@ -38,7 +38,7 @@ icinga2_master_api_users: []
 #    password: 'passw0rd'
 #    permissions: 'actions/generate-ticket'
 
-# List of recurring downtimes
+# List of recurring downtimes (undeclared/empty services == host downtime)
 icinga2_master_downtimes: []
 #  - name: web-restart
 #    comment: Web service restart every Monday and Thursday noon
