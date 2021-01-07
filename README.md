@@ -46,6 +46,7 @@ icinga2_master_api_users: []
 icinga2_master_downtimes: []
 #  - name: web-restart
 #    comment: Web service restart every Monday and Thursday noon
+#    author: icingaadmin
 #    ranges:
 #      - day: monday
 #        time: 12:00-12:20
@@ -58,6 +59,9 @@ icinga2_master_downtimes: []
 #      - svc_remote_http
 #      - svc_remote_https
 #      - svc_local_procs_apache2
+
+# Default downtimes author if downtime-specific author isn't set:
+icinga2_master_downtimes_author: icingaadmin
 ```
 
 Templates can be adjusted using variables.
