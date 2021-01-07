@@ -20,6 +20,7 @@ template ScheduledDowntime "template-downtime-{{ downtime.name }}" {
 {% if not (downtime.services | default([])) %}
 apply ScheduledDowntime "host-downtime-{{ downtime.name }}" to Host {
   import "template-downtime-{{ downtime.name }}"
+  author = "{{ downtime.author | default(icinga2_master_downtimes_author) }}"
   comment = "{{ downtime.comment | default(downtime.name) }} (host downtime)"
   assign where host.name in [
     "{{ downtime.hosts | join('",\n    "') }}"
@@ -29,6 +30,7 @@ apply ScheduledDowntime "host-downtime-{{ downtime.name }}" to Host {
 {% endif %}
 apply ScheduledDowntime "service-downtime-{{ downtime.name }}" to Service {
   import "template-downtime-{{ downtime.name }}"
+  author = "{{ downtime.author | default(icinga2_master_downtimes_author) }}"
   comment = "{{ downtime.comment | default(downtime.name) }} (service downtime)"
   assign where host.name in [
     "{{ downtime.hosts | join('",\n    "') }}"
