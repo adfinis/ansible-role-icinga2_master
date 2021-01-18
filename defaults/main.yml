@@ -108,6 +108,7 @@ icinga2_master_api_users: []
 icinga2_master_downtimes: []
 #  - name: web-restart
 #    comment: Bi-weekly Web service restart
+#    author: icingaadmin
 #    ranges:
 #      - day: monday
 #        time: 01:00-01:30
@@ -125,6 +126,7 @@ icinga2_master_downtimes: []
 #        time: 17:00-19:00
 #    hosts: ['host.example.org']
 #    # no services == applies to entire host
+icinga2_master_downtimes_author: icingaadmin
 
 # Icinga2 timeperiods
 icinga2_master_timeperiods:
