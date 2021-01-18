@@ -4,19 +4,39 @@
  *
  *  Icinga2 service downtimes
  */
-
 {% for downtime in icinga2_master_downtimes %}
-apply ScheduledDowntime "downtime-{{ downtime.name }}" to {{ 'Service' if downtime.services else 'Host' }} {
-  comment = "{{ downtime.comment }}"
 
+
+/* {{ downtime.comment | default(downtime.name) }} */
+
+template ScheduledDowntime "template-downtime-{{ downtime.name }}" {
   ranges = {
-{% for range in downtime.ranges %}    "{{ range.day }}" = "{{ range.time }}"
-{% endfor %}  }
+{% for range in downtime.ranges %}
+    "{{ range.day }}" = "{{ range.time }}"
+{% endfor %}
+  }
+}
 
+{% if not (downtime.services | default([])) %}
+apply ScheduledDowntime "host-downtime-{{ downtime.name }}" to Host {
+  import "template-downtime-{{ downtime.name }}"
+  author = "{{ downtime.author | default(icinga2_master_downtimes_author) }}"
+  comment = "{{ downtime.comment | default(downtime.name) }} (host downtime)"
   assign where host.name in [
     "{{ downtime.hosts | join('",\n    "') }}"
-  ]{% if downtime.services %} && service.name in [
+  ]
+}
+
+{% endif %}
+apply ScheduledDowntime "service-downtime-{{ downtime.name }}" to Service {
+  import "template-downtime-{{ downtime.name }}"
+  author = "{{ downtime.author | default(icinga2_master_downtimes_author) }}"
+  comment = "{{ downtime.comment | default(downtime.name) }} (service downtime)"
+  assign where host.name in [
+    "{{ downtime.hosts | join('",\n    "') }}"
+  ]{% if (downtime.services | default([])) %} && service.name in [
     "{{ downtime.services | join('",\n    "') }}"
   ]{% endif %}
+
 }
 {% endfor %}
