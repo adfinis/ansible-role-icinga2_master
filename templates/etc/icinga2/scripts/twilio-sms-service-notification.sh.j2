@@ -130,6 +130,16 @@ if [ "$VERBOSE" == "true" ] ; then
   logger "$PROG sends $SUBJECT => $USERPHONE"
 fi
 
+{% if icinga2_master_sms_to_mattermost_notification is defined and icinga2_master_sms_to_mattermost_notification %}
+MM_MSG=$(cat << EOF
+{"channel": "{{ icinga2_master_notification_mattermost_channel }}", "username": "{{ icinga2_master_notification_mattermost_username }}", "icon_url": "{{ icinga2_master_notification_mattermost_icon_url }}", "text": "${NOTIFICATION_MESSAGE}"}
+EOF
+)
+
+curl -s -X POST -H 'Content-Type: application/json' \
+  -d "${MM_MSG}" \
+  {{ icinga2_master_notification_mattermost_webhook }} > /dev/null
+{% endif %}
 
 ## Send the call using the Twilio API
 echo "sent sms to ${phone_number} now: $(date -u)" >> /var/log/icinga2/twilio.log

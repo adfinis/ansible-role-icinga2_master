@@ -93,6 +93,27 @@ icinga2_master_twilio_phone_enabled: False
 # https://www.twilio.com/docs/voice/make-calls
 #icinga2_master_twilio_phone_application_sid: 'application_sid'
 #icinga2_master_twilio_phone_application_url: 'application_url'
+
+# Wether to enable SMS to Mattermost notifications
+# This requires an incoming mattermost webhook to be configured in your
+# mattermost instance. See https://docs.mattermost.com/developer/webhooks-incoming.html
+
+# Enable the sms to mattermost notification
+icinga2_master_sms_to_mattermost_notification: False
+
+# Which channel to send the post to
+icinga2_master_notification_mattermost_channel: alerts
+
+# Username of the Bot posting the message
+icinga2_master_notification_mattermost_username: Alertbot
+
+# Profile picture of the bot posting the message
+# Can be left empty (the default of the webhook will be used or point to an image file
+icinga2_master_notification_mattermost_icon_url: ""
+
+# The webhook where to send the message to
+icinga2_master_notification_mattermost_webhook: "https://mattermost.example.com/hooks/hookid"
+
 ```
 
 Dependencies
