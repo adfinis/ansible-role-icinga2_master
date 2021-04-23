@@ -111,9 +111,16 @@ EOF
 
 ## Check whether Icinga Web 2 URL was specified.
 if [ -n "$ICINGAWEB2URL" ] ; then
-  NOTIFICATION_MESSAGE="$NOTIFICATION_MESSAGE
+  LONGURL="${ICINGAWEB2URL}/monitoring/service/show?host=$(urlencode "${HOSTNAME}&")service=$(urlencode "${SERVICENAME}")"
+  SHORTURL=$({{ icinga2_master_twilio_shorturl_cmd }})
 
-$ICINGAWEB2URL/monitoring/service/show?host=$(urlencode "$HOSTNAME")&service=$(urlencode "$SERVICENAME")"
+  if [ ! -z ${SHORTURL} ]; then
+    NOTIFICATION_MESSAGE="$NOTIFICATION_MESSAGE
+${SHORTURL}"
+  else
+    NOTIFICATION_MESSAGE="$NOTIFICATION_MESSAGE
+${LONGURL}"
+  fi
 fi
 
 ## Check whether verbose mode was enabled and log to syslog.
