@@ -1,0 +1,1 @@
+printf "https://adfin.is/$(curl -s -H "Content-Type: application/x-www-form-urlencoded" -X POST https://adsy:mBwEn8B3asyx@adfin.is/admin/api/new -d url=${LONGURL}\&exp_date=$(date --iso -d "+7 days"  ) | jq -r .uuid)"
