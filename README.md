@@ -94,6 +94,16 @@ icinga2_master_twilio_phone_enabled: False
 #icinga2_master_twilio_phone_application_url: 'application_url'
 ```
 
+Role Special Hostgroups
+---------------
+
+The following names will be used in the context of ansible group selectors and are evaluated inside of the role
+Their special meaning should be described in more depth (!!TODO!!).
+
+* monitoring_client
+* monitoring_master
+* monitoring_sat
+
 Dependencies
 ------------
 
