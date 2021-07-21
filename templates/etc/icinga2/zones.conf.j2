@@ -30,6 +30,7 @@ object Zone "{{ item }}" {
 }
 
 {% endfor %}
+{% if groups["monitoring_sat"]|default([])|length > 0 %}
 /*
  * Satellite Zones
  */
@@ -44,3 +45,8 @@ object Zone "{{ item }}" {
   parent = "{{ icinga2_master_client_parent_zone }}"
 }
 {% endfor %}
+{% else %}
+/*
+ * no Satellite Zones - hostgroup monitoring_sat empty or missing
+ */
+{% endif %}
