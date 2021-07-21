@@ -28,6 +28,9 @@ jobs:
         with:
           targets: icinga2_master
           args: "-R -r lint-rules"
+          override-deps: |
+            ansible~=2.10
+            ansible-lint~=5.0
 
       - name: yamllint
         uses: karancode/yamllint-github-action@v2.0.0

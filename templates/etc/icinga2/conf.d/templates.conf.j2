@@ -67,7 +67,9 @@ template Notification "twilio-sms-host-notification" {
   types = [ Problem ]
 
   vars += {
-    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
     notification_logtosyslog = false
   }
 }
@@ -79,7 +81,9 @@ template Notification "twilio-sms-service-notification" {
   types = [ Problem ]
 
   vars += {
-    notification_icingaweb2url = "https://icinga2.adfinis-sygroup.ch/icingaweb2"
+{% if icinga2_master_alerting_icingaweb2url is defined %}
+    notification_icingaweb2url = "{{ icinga2_master_alerting_icingaweb2url }}"
+{% endif %}
     notification_logtosyslog = false
   }
 }

@@ -14,33 +14,33 @@ icinga2_master_users:
     email: 'alertme@example.com'
     groups:
       - icingaadmins
-#icinga2_master_users:
-#  - name: username
-#    displayname: 'User Name' # optional, defaults to an empty string
-#    email: 'mail@example.com' # optional, defaults to an empty string
-#    pager: '+41123456789' # optional, defaults to an empty string
-#    groups: [] # optional, defaults to an empty list
-#      # - group1
-#      # - group2
-#    enable_notifications: (true|false) # optional, defaults to true
-#    period: '24x7' # optional, not set by default
-#    types: [] # optional, not set by default
-#      # - DowntimeStart
-#      # - DowntimeEnd
-#      # - DowntimeRemoved
-#      # - Custom
-#      # - Acknowledgement
-#      # - Problem
-#      # - Recovery
-#      # - FlappingStart
-#      # - FlappingEnd
-#    states: [] # optional, not set by default
-#      # - OK
-#      # - Warning
-#      # - Critical
-#      # - Unknown
-#      # - Up
-#      # - Down
+# icinga2_master_users:
+#   - name: username
+#     displayname: 'User Name' # optional, defaults to an empty string
+#     email: 'mail@example.com' # optional, defaults to an empty string
+#     pager: '+41123456789' # optional, defaults to an empty string
+#     groups: [] # optional, defaults to an empty list
+#       # - group1
+#       # - group2
+#     enable_notifications: (true|false) # optional, defaults to true
+#     period: '24x7' # optional, not set by default
+#     types: [] # optional, not set by default
+#       # - DowntimeStart
+#       # - DowntimeEnd
+#       # - DowntimeRemoved
+#       # - Custom
+#       # - Acknowledgement
+#       # - Problem
+#       # - Recovery
+#       # - FlappingStart
+#       # - FlappingEnd
+#     states: [] # optional, not set by default
+#       # - OK
+#       # - Warning
+#       # - Critical
+#       # - Unknown
+#       # - Up
+#       # - Down
 
 # All groups which icinga2 should know.
 # Check the official icinga2 documentation for further information
@@ -48,59 +48,101 @@ icinga2_master_users:
 icinga2_master_usergroups:
   - name: icingaadmins
     displayname: 'Icinga2 Admins'
-#icinga2_master_usergroups:
-#  - name: groupname
-#    displayname: 'Group Name' # optional, defaults to an empty string
-#    groups: [] # optional, not set by default
-#      # - group1
-#      # - group2
+# icinga2_master_usergroups:
+#   - name: groupname
+#     displayname: 'Group Name' # optional, defaults to an empty string
+#     groups: [] # optional, not set by default
+#       # - group1
+#       # - group2
 
 # Icinga2 Hostgroups
 icinga2_master_hostgroups: []
-#icinga2_master_hostgroups:
-#  - name: linux-servers
-#    display_name: 'Linux Servers'
-#    assignments:
-#      - var: 'host.vars.os'
-#        value: 'Linux'
-#  - name: windows-servers
-#    display_name: 'Windows Servers'
-#    assignments:
-#      - var: 'host.vars.os'
-#        value: 'Windows'
+# icinga2_master_hostgroups:
+#   - name: linux-servers
+#     display_name: 'Linux Servers'
+#     assignments:
+#       - var: 'host.vars.os'
+#         value: 'Linux'
+#   - name: windows-servers
+#     display_name: 'Windows Servers'
+#     assignments:
+#       - var: 'host.vars.os'
+#         value: 'Windows'
 
 # Icinga2 ServiceGroups
 icinga2_master_servicegroups: []
-#icinga2_master_servicegroups:
-#  - name: ping
-#    display_name: 'Ping Checks'
-#    assignments:
-#      - match: 'ping*'
-#        value: 'service.name'
-#  - name: http
-#    display_name: 'HTTP Checks'
-#    assignments:
-#      - match: 'http*'
-#        value: 'service.check_command'
-#  - name: disk
-#    display_name: 'Disk Checks'
-#    assignments:
-#      - match: 'disk*'
-#        value: 'service.check_command'
+# icinga2_master_servicegroups:
+#   - name: ping
+#     display_name: 'Ping Checks'
+#     assignments:
+#       - match: 'ping*'
+#         value: 'service.name'
+#   - name: http
+#     display_name: 'HTTP Checks'
+#     assignments:
+#       - match: 'http*'
+#         value: 'service.check_command'
+#   - name: disk
+#     display_name: 'Disk Checks'
+#     assignments:
+#       - match: 'disk*'
+#         value: 'service.check_command'
 
 # A list of all icinga2 api users
 icinga2_master_api_users: []
 #  - username: root
 #    password: 'passw0rd'
-#    permissions: '*'
+#    permissions:
+#    - name: '*'
 #  - username: token-generator
 #    password: 'passw0rd'
-#    permissions: 'actions/generate-ticket'
+#    permissions:
+#    - name: 'actions/generate-ticket'
 #  - username: foo
 #    password: 'passw0rd'
 #    permissions:
 #    - name: 'actions/generate-ticket'
 #      filter: '"host.name" == "bar"'
+
+# Icinga2 timeperiods
+icinga2_master_timeperiods:
+  - name: holidays
+    display_name: Holidays
+    ranges:
+      - day: "december 25"
+        time: 00:00-24:00
+  - name: premium
+    display_name: SLA Premium
+    ranges:
+      - day: monday
+        time: 00:00-24:00
+      - day: tuesday
+        time: 00:00-24:00
+      - day: wednesday
+        time: 00:00-24:00
+      - day: thursday
+        time: 00:00-24:00
+      - day: friday
+        time: 00:00-24:00
+      - day: saturday
+        time: 00:00-24:00
+      - day: sunday
+        time: 00:00-24:00
+  - name: standard
+    display_name: SLA Standard
+    ranges:
+      - day: monday
+        time: 08:00-18:00
+      - day: tuesday
+        time: 08:00-18:00
+      - day: wednesday
+        time: 08:00-18:00
+      - day: thursday
+        time: 08:00-18:00
+      - day: friday
+        time: 08:00-18:00
+    excludes:
+      - holidays
 
 # Enable the graphite writer feature
 icinga2_master_graphite_enabled: False
@@ -170,31 +212,37 @@ icinga2_master_global_zones:
 ## Global alerting settings
 
 # The URL from icingaweb2. Will be attached to the alerts
-#icinga2_master_alerting_icingaweb2url = "https://icinga2.example.com/icingaweb2"
+# icinga2_master_alerting_icingaweb2url = "https://icinga2.example.com/icingaweb2"
 
 # The adress from which mails should be sent
-#icinga2_master_mail_from: "mail@example.com"
+# icinga2_master_mail_from: "mail@example.com"
 
 ## Twilio alerting
 
 # The account sid from https://www.twilio.com/console
-#icinga2_master_twilio_account_sid: 'account_sid'
+# icinga2_master_twilio_account_sid: 'account_sid'
 
 # The auth token from https://www.twilio.com/console
-#icinga2_master_twilio_auth_token: 'auth_token'
+# icinga2_master_twilio_auth_token: 'auth_token'
 
 # Whether twilio sms are enabled or not
 icinga2_master_twilio_sms_enabled: False
 
 # The twilio phone numer used to send sms
-#icinga2_master_twilio_sms_from: '+41123456789'
+# icinga2_master_twilio_sms_from: '+41123456789'
 
 # Whether twilio calls are enabled or not
 icinga2_master_twilio_phone_enabled: False
 
 # The twilio phone number used to make calls
-#icinga2_master_twilio_phone_from: '+41123456789'
+# icinga2_master_twilio_phone_from: '+41123456789'
 
 # The twilio application sid on how to handle the call
 # https://www.twilio.com/docs/voice/make-calls
-#icinga2_master_twilio_phone_application_sid: 'application_sid'
+# icinga2_master_twilio_phone_application_sid: 'application_sid'
+
+# Icinga2 shorturl cmd
+# The command which gets substituted when this variable is set
+# Example:
+# icinga2_master_twilio_shorturl_cmd: "curl -s -X POST https://urlshort.example.com/api/new -d url=${LONGURL} | jq -r .shorturl"
+icinga2_master_twilio_shorturl_cmd: ""

@@ -56,8 +56,9 @@ icinga2_master_template_confd_users: "users.conf"
 
 # These variables can be adjusted if you have custom templates for the global
 # templates directory which gets synced to all clients.
-icinga2_master_tempalte_globaltemplates_services: "services.conf"
-icinga2_master_tempalte_globaltemplates_templates: "templates.conf"
+icinga2_master_template_globaltemplates:
+  - "services.conf"
+  - "templates.conf"
 ```
 
 If you want to use [Twilio](https://www.twilio.com) for the alerting,
