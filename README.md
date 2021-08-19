@@ -82,6 +82,16 @@ icinga2_master_twilio_sms_enabled: False
 # The twilio phone numer used to send sms
 #icinga2_master_twilio_sms_from: '+41123456789'
 
+# Twilio SMS scripts additional commands
+# Can be used to execute custom scripts after the SMS is sent
+# defaults to an empty list, add command lines as necessary
+# Example:
+#icinga2_master_twilio_sms_additional_commands:
+#  # Execute a custom script after the sms has been sent to also send
+#  # the notification to mattermost
+#  - "/etc/icinga2/scripts/mattermost.sh "${NOTIFICATION_MESSAGE}""
+icinga2_master_twilio_sms_additional_commands: []
+
 # Whether twilio calls are enabled or not
 icinga2_master_twilio_phone_enabled: False
 
