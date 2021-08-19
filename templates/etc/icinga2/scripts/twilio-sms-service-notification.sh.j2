@@ -130,10 +130,6 @@ if [ "$VERBOSE" == "true" ] ; then
   logger "$PROG sends $SUBJECT => $USERPHONE"
 fi
 
-
-## Send the call using the Twilio API
-echo "sent sms to ${phone_number} now: $(date -u)" >> /var/log/icinga2/twilio.log
-
 curl -s -X POST -u "${account_sid}:${auth_token}" \
   -d "Body=${NOTIFICATION_MESSAGE}" \
   -d "From=${phone_number}" \
