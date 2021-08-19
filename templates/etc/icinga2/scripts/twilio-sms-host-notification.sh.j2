@@ -128,3 +128,7 @@ curl -s -X POST -u "${account_sid}:${auth_token}" \
   -d "From=${phone_number}" \
   -d "To=${USERPHONE}" \
   "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages"
+
+{% for line in icinga2_master_twilio_sms_additional_commands %}
+{{ line }}
+{% endfor %}
