@@ -6,6 +6,6 @@ icinga2_master_group: "nagios"
 icinga2_master_ido_packages:
   - "python-mysqldb"
   - "icinga2-ido-mysql"
-  - "mysql-client"
+  - "default-mysql-client"
 
 icinga2_master_ca_path: "/etc/ssl/certs/ca-certificates.crt"
