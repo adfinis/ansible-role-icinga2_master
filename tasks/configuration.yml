@@ -249,8 +249,7 @@
       inventory_hostname == icinga2_client_monitoring_parents[0]
       and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
-# @TODO: icinga2_master_client_parent_zone is not being created if no satelitte is being used THIS IS A WORKAROUND!
-- name: create master zone
+- name: ensure master zone folder exists
   file:
     path: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/
     owner: "{{ icinga2_master_owner }}"
