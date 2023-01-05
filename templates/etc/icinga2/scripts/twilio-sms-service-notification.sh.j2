@@ -113,7 +113,7 @@ EOF
 
 ## Check whether Icinga Web 2 URL was specified.
 if [ -n "$ICINGAWEB2URL" ] ; then
-  LONGURL="${ICINGAWEB2URL}/monitoring/service/show?host=$(urlencode "${HOSTNAME}&")service=$(urlencode "${SERVICENAME}")"
+  LONGURL="${ICINGAWEB2URL}/icingadb/host?name=$(urlencode "${HOSTNAME}")"
   SHORTURL=$({{ icinga2_master_twilio_shorturl_cmd }})
 
   if [ ! -z ${SHORTURL} ]; then
