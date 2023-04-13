@@ -153,10 +153,25 @@ icinga2_master_graphite_host: 127.0.0.1
 # The port graphite is listening on
 icinga2_master_graphite_port: 2003
 
-## Icinga2 ido database settings
+## Icinga2db settings (DO NOT USE ICINGADB AND IDO AT THE SAME TIME)
 
-# Enable ido feature
+## Enable icingadb feature
+icinga2_master_icingadb_enabled: False
+
+# Icingadb database user
+icinga2_master_icingadb_user: icingadb
+
+# Database user's password
+icinga2_master_icingadb_password: 'passw0rd'
+
+# Database name for icingadb
+icinga2_master_icingadb_database: icingadb
+ 
+  
+ ## Enable ido feature (deprecated)
 icinga2_master_ido_enabled: False
+
+## Icinga2 database settings
 
 # icinga2 database name
 icinga2_master_icinga2_database_name: icinga2

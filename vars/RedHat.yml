@@ -3,6 +3,10 @@
 icinga2_master_owner: "icinga"
 icinga2_master_group: "icinga"
 
+icinga2_master_icingadb_packages:
+  - "icingadb"
+  - "icingadb-redis"
+
 icinga2_master_ido_packages:
   - "MySQL-python"
   - "icinga2-ido-mysql"
