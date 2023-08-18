@@ -30,6 +30,7 @@ Optional parameters:
   -b NOTIFICATIONAUTHORNAME (\$notification.author\$)
   -i ICINGAWEB2URL (\$notification_icingaweb2url\$, Default: unset)
   -v (\$notification_sendtosyslog\$, Default: false)
+  -X (\$notification_extradata\$, Default: unset)
 
 EOF
 }
@@ -60,7 +61,8 @@ urlencode() {
 {% endraw %}
 
 ## Main
-while getopts d:hi:l:n:o:r:s:t:v: opt
+EXTRA_DATA=
+while getopts d:hi:l:n:o:r:s:t:v:X: opt
 do
   case "$opt" in
     d) LONGDATETIME=$OPTARG ;; # required
@@ -73,6 +75,7 @@ do
     s) HOSTSTATE=$OPTARG ;; # required
     t) NOTIFICATIONTYPE=$OPTARG ;; # required
     v) VERBOSE=$OPTARG ;;
+    X) EXTRA_DATA=$OPTARG ;;
    \?) echo "ERROR: Invalid option -$OPTARG" >&2
        Error ;;
     :) echo "Missing option argument for -$OPTARG" >&2
