@@ -11,7 +11,7 @@ account_sid="{{ icinga2_master_twilio_account_sid }}"
 auth_token="{{ icinga2_master_twilio_auth_token }}"
 phone_number="{{ icinga2_master_twilio_sms_from }}"
 
-PROG="$(basename "$0")"
+PROG=${0##*/}
 
 ## Function helpers
 Usage() {
