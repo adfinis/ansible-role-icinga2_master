@@ -11,7 +11,7 @@ account_sid="{{ icinga2_master_twilio_account_sid }}"
 auth_token="{{ icinga2_master_twilio_auth_token }}"
 phone_number="{{ icinga2_master_twilio_sms_from }}"
 
-PROG="$(basename "$0")"
+PROG=${0##*/}
 
 ## Function helpers
 Usage() {
@@ -29,8 +29,8 @@ Required parameters:
 Optional parameters:
   -b NOTIFICATIONAUTHORNAME (\$notification.author\$)
   -i ICINGAWEB2URL (\$notification_icingaweb2url\$, Default: unset)
-  -r USERPHONE (\$user.pager\$)
   -v (\$notification_sendtosyslog\$, Default: false)
+  -X (\$notification_extradata\$, Default: unset)
 
 EOF
 }
@@ -61,7 +61,8 @@ urlencode() {
 {% endraw %}
 
 ## Main
-while getopts d:hi:l:n:o:r:s:t:v: opt
+EXTRA_DATA=
+while getopts d:hi:l:n:o:r:s:t:v:X: opt
 do
   case "$opt" in
     d) LONGDATETIME=$OPTARG ;; # required
@@ -74,6 +75,7 @@ do
     s) HOSTSTATE=$OPTARG ;; # required
     t) NOTIFICATIONTYPE=$OPTARG ;; # required
     v) VERBOSE=$OPTARG ;;
+    X) EXTRA_DATA=$OPTARG ;;
    \?) echo "ERROR: Invalid option -$OPTARG" >&2
        Error ;;
     :) echo "Missing option argument for -$OPTARG" >&2
