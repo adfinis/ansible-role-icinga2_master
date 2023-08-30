@@ -24,7 +24,7 @@ jobs:
           path: lint-rules
 
       - name: ansible-lint
-        uses: ansible/ansible-lint-action@master
+        uses: ansible/ansible-lint-action@main
         with:
           targets: icinga2_master
           args: "-R -r lint-rules"
