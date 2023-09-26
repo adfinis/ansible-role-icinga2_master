@@ -1,5 +1,50 @@
 ---
 
+- name: configure icingadb feature
+  template:
+    src: etc/icinga2/features-available/icingadb.conf.j2
+    dest: /etc/icinga2/features-available/icingadb.conf
+    owner: "{{ icinga2_master_owner }}"
+    group: "{{ icinga2_master_group }}"
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  when: icinga2_master_icingadb_enabled|bool
+
+- name: configure icingadb
+  template:
+    src: etc/icingadb/config.yml.j2
+    dest: /etc/icingadb/config.yml
+    owner: "icingadb"
+    group: "{{ icinga2_master_group }}"
+    mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: icinga2_etc_t
+    selevel: s0
+  when: icinga2_master_icingadb_enabled|bool
+
+- name: ensure that icingadb-redis is started and enabled on boot
+  service:
+    name: icingadb-redis
+    state: started
+    enabled: yes
+
+- name: ensure that icingadb is started and enabled on boot
+  service:
+    name: icingadb
+    state: started
+    enabled: yes
+
+- name: enable icingadb feature
+  file:
+    src: /etc/icinga2/features-available/icingadb.conf
+    dest: /etc/icinga2/features-enabled/icingadb.conf
+    state: link
+  when: icinga2_master_icingadb_enabled|bool
+
 - name: configure icinga2 ido feature
   template:
     src: etc/icinga2/features-available/ido-mysql.conf.j2

@@ -3,6 +3,10 @@
 icinga2_master_owner: "nagios"
 icinga2_master_group: "nagios"
 
+icinga2_master_icingadb_packages:
+  - "icingadb"
+  - "icingadb-redis"
+
 icinga2_master_ido_packages:
   - "python-mysqldb"
   - "icinga2-ido-mysql"
