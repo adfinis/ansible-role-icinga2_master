@@ -3,7 +3,7 @@ ROLE ICINGA2\_MASTER
 
 [![image](https://img.shields.io/github/license/adfinis/ansible-role-icinga2_master.svg?style=flat-square)](https://github.com/adfinis/ansible-role-icinga2_master/blob/master/LICENSE)
 
-[![image](https://img.shields.io/github/actions/workflow/status/adfinis/ansible-role-icinga2_master/CI%20-%20Linting?style=flat-square)](https://github.com/adfinis/ansible-role-icinga2_master/actions)
+[![image](https://img.shields.io/github/actions/workflow/status/adfinis/ansible-role-icinga2_master/ansible-ci.yml?style=flat-square)](https://github.com/adfinis/ansible-role-icinga2_master/actions)
 
 [![image](https://img.shields.io/badge/galaxy-adfinis.icinga2_master-660198.svg?style=flat-square)](https://galaxy.ansible.com/adfinis/icinga2_master)
 
