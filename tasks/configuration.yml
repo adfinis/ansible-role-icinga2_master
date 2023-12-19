@@ -1,69 +1,68 @@
 ---
-
-- name: configure icinga2 ido feature
-  template:
+- name: Configure icinga2 ido feature
+  ansible.builtin.template:
     src: etc/icinga2/features-available/ido-mysql.conf.j2
     dest: /etc/icinga2/features-available/ido-mysql.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_ido_enabled|bool
 
-- name: enable icinga2 ido feature
-  file:
+- name: Enable icinga2 ido feature
+  ansible.builtin.file:
     src: /etc/icinga2/features-available/ido-mysql.conf
     dest: /etc/icinga2/features-enabled/ido-mysql.conf
     state: link
   when: icinga2_master_ido_enabled|bool
 
-- name: install icinga2 configuration
-  template:
+- name: Install icinga2 configuration
+  ansible.builtin.template:
     src: etc/icinga2/icinga2.conf.j2
     dest: /etc/icinga2/icinga2.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
-- name: install icinga2 constants configuration
-  template:
+- name: Install icinga2 constants configuration
+  ansible.builtin.template:
     src: etc/icinga2/constants.conf.j2
     dest: /etc/icinga2/constants.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
-- name: remove files from conf.d which are already defined in global-templates
-  copy:
-    dest: '{{ item }}'
+- name: Remove files from conf.d which are already defined in global-templates
+  ansible.builtin.copy:
+    dest: "{{ item }}"
     content: ""
-    force: yes
-    mode: 0644
+    force: true
+    mode: "0644"
   loop:
     - /etc/icinga2/conf.d/services.conf
     - /etc/icinga2/conf.d/hosts.conf
 
 # Twilio configuration
-- name: install twilio sms scripts
-  template:
+- name: Install twilio sms scripts
+  ansible.builtin.template:
     src: etc/icinga2/scripts/{{ item }}.j2
     dest: /etc/icinga2/scripts/{{ item }}
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0755
+    mode: "0755"
     seuser: system_u
     serole: object_r
     setype: nagios_notification_plugin_exec_t
@@ -73,13 +72,13 @@
     - twilio-sms-service-notification.sh
   when: icinga2_master_twilio_sms_enabled|bool
 
-- name: install twilio phone script
-  template:
+- name: Install twilio phone script
+  ansible.builtin.template:
     src: etc/icinga2/scripts/{{ item }}.j2
     dest: /etc/icinga2/scripts/{{ item }}
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0755
+    mode: "0755"
     seuser: system_u
     serole: object_r
     setype: nagios_notification_plugin_exec_t
@@ -88,13 +87,13 @@
     - twilio-phone-notification.sh
   when: icinga2_master_twilio_phone_enabled|bool
 
-- name: install icinga2 conf.d configurations
-  template:
+- name: Install icinga2 conf.d configurations
+  ansible.builtin.template:
     src: etc/icinga2/conf.d/{{ item }}.j2
     dest: /etc/icinga2/conf.d/{{ item }}
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -109,37 +108,37 @@
     - "{{ icinga2_master_template_confd_users }}"
   notify: icinga2_master reload icinga2
 
-- name: execute icinga2 api setup command
-  command: icinga2 api setup
+- name: Execute icinga2 api setup command
+  ansible.builtin.command: icinga2 api setup
   args:
     creates: /var/lib/icinga2/ca/ca.crt
   notify: icinga2_master reload icinga2
 
-- name: configure icinga2 api feature
-  template:
+- name: Configure icinga2 api feature
+  ansible.builtin.template:
     src: etc/icinga2/features-available/api.conf.j2
     dest: /etc/icinga2/features-available/api.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
 
-- name: enable icinga2 api feature
-  file:
+- name: Enable icinga2 api feature
+  ansible.builtin.file:
     src: /etc/icinga2/features-available/api.conf
     dest: /etc/icinga2/features-enabled/api.conf
     state: link
 
-- name: configure icinga2 graphite feature
-  template:
+- name: Configure icinga2 graphite feature
+  ansible.builtin.template:
     src: etc/icinga2/features-available/graphite.conf.j2
     dest: /etc/icinga2/features-available/graphite.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -147,8 +146,8 @@
   when: icinga2_master_graphite_enabled|bool
   notify: icinga2_master reload icinga2
 
-- name: enable icinga2 graphite feature
-  file:
+- name: Enable icinga2 graphite feature
+  ansible.builtin.file:
     src: /etc/icinga2/features-available/graphite.conf
     dest: /etc/icinga2/features-enabled/graphite.conf
     state: link
@@ -156,12 +155,12 @@
   notify: icinga2_master reload icinga2
 
 # Global Icinga2 configuration
-- name: ensure the global-templates directory is present
-  file:
+- name: Ensure the global-templates directory is present
+  ansible.builtin.file:
     dest: /etc/icinga2/zones.d/global-templates
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0755
+    mode: "0755"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -169,13 +168,13 @@
     state: directory
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
-- name: create global template configurations
-  template:
+- name: Create global template configurations
+  ansible.builtin.template:
     src: etc/icinga2/zones.d/global-templates/{{ item }}.j2
     dest: /etc/icinga2/zones.d/global-templates/{{ item }}
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -184,26 +183,26 @@
   notify: icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
-- name: create global zones configuration
-  template:
+- name: Create global zones configuration
+  ansible.builtin.template:
     src: etc/icinga2/zones.conf.j2
     dest: /etc/icinga2/zones.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   notify: icinga2_master reload icinga2
 
-- name: create zone configuration directory for each host
-  file:
+- name: Create zone configuration directory for each host
+  ansible.builtin.file:
     path: /etc/icinga2/zones.d/{{ hostvars[item].inventory_hostname }}
     state: directory
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0755
+    mode: "0755"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -211,16 +210,16 @@
   loop: '{{ groups["monitoring_sat"] }}'
   notify: icinga2_master reload icinga2
   when: >
-      inventory_hostname == icinga2_client_monitoring_parents[0]
-      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
+    inventory_hostname == icinga2_client_monitoring_parents[0]
+    and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
-- name: create zone file for each zone
-  template:
+- name: Create zone file for each zone
+  ansible.builtin.template:
     src: etc/icinga2/zones.d/generic_zone.conf.j2
     dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_zone.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -228,17 +227,17 @@
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
   when: >
-      inventory_hostname == icinga2_client_monitoring_parents[0]
-      and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
-      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
+    inventory_hostname == icinga2_client_monitoring_parents[0]
+    and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
+    and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
-- name: create host file per host
-  template:
+- name: Create host file per host
+  ansible.builtin.template:
     src: etc/icinga2/zones.d/generic_host.conf.j2
     dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -246,15 +245,15 @@
   loop: '{{ groups["monitoring_client"] }}'
   notify: icinga2_master reload icinga2
   when: >
-      inventory_hostname == icinga2_client_monitoring_parents[0]
-      and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
+    inventory_hostname == icinga2_client_monitoring_parents[0]
+    and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
 
-- name: ensure master zone folder exists
-  file:
+- name: Ensure master zone folder exists
+  ansible.builtin.file:
     path: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
@@ -262,28 +261,25 @@
     state: directory
   loop: '{{ groups["monitoring_master"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0]
-        and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
+  when: inventory_hostname == icinga2_client_monitoring_parents[0] and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed) # noqa: yaml[line-length]
 
-
-- name: add our own host configuration
-  template:
+- name: Add our own host configuration
+  ansible.builtin.template:
     src: etc/icinga2/zones.d/generic_host.conf.j2
     dest: /etc/icinga2/zones.d/{{ hostvars[item].icinga2_master_client_parent_zone }}/{{ hostvars[item].inventory_hostname }}_host.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_master"] }}'
   notify: icinga2_master reload icinga2
-  when: inventory_hostname == icinga2_client_monitoring_parents[0]
-        and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
+  when: inventory_hostname == icinga2_client_monitoring_parents[0] and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed) # noqa: yaml[line-length]
 
-- name: ensure that icinga2 is started and enabled on boot
-  service:
+- name: Ensure that icinga2 is started and enabled on boot
+  ansible.builtin.service:
     name: icinga2
     state: started
-    enabled: yes
+    enabled: true

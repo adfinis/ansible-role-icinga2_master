@@ -1,39 +1,18 @@
 ---
 name: CI - Linting
 
-on:
+'on':
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-  # This workflow contains a single job called "build"
   lint:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          path: icinga2_master
-
-      # Checkout Adfinis lint-rules
-      - uses: actions/checkout@v2
-        with:
-          repository: adfinis-sygroup/ansible-lint-rules
-          path: lint-rules
-
-      - name: ansible-lint
-        uses: ansible/ansible-lint-action@master
-        with:
-          targets: icinga2_master
-          args: "-R -r lint-rules"
-          override-deps: |
-            ansible~=2.10
-            ansible-lint~=5.0
-
-      - name: yamllint
-        uses: karancode/yamllint-github-action@v2.0.0
-        with:
-          yamllint_config_filepath: icinga2_master/.testenv/yamllint.yml
-          yamllint_file_or_dir: icinga2_master
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main

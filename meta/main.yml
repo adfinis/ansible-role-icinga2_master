@@ -1,20 +1,21 @@
 ---
 
 dependencies:
-  - name: 'adfinis-sygroup.icinga2_agent'
+  - name: adfinis.icinga2_agent
 
 galaxy_info:
-  role_name: 'icinga2_master'
-  author: 'Adfinis SyGroup AG'
-  description: 'This role is used to configure icinga2 in master mode'
-  company: 'Adfinis SyGroup AG'
-  license: 'GNU General Public License v3'
-  min_ansible_version: '2.0.0'
+  role_name: icinga2_master
+  namespace: adfinis
+  author: Adfinis AG
+  description: This role is used to configure icinga2 in master mode
+  company: Adfinis AG
+  license: GNU General Public License v3
+  min_ansible_version: 2.0.0
   platforms:
     - name: EL
       versions:
-        - 7
+        - "7"
   galaxy_tags:
-    - 'icinga2'
-    - 'monitoring'
-    - 'master'
+    - icinga2
+    - monitoring
+    - master
