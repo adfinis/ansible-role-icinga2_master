@@ -1,6 +1,7 @@
 ---
 
-- hosts: localhost
+- name: Run Tests
+  hosts: localhost
   remote_user: root
   roles:
-    - icinga2_master
+    - adfinis.icinga2_master
