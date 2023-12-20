@@ -1,3 +1,5 @@
 ---
 roles:
   - name: adfinis.icinga2_agent
+collections:
+  - name: community.mysql

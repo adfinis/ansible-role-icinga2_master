@@ -1,8 +1,9 @@
 ---
 
 dependencies:
-  - name: adfinis.icinga2_agent
-
+  - role: adfinis.icinga2_agent
+collections:
+  - community.mysql
 galaxy_info:
   role_name: icinga2_master
   namespace: adfinis
