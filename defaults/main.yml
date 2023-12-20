@@ -11,7 +11,7 @@ icinga2_master_client_parent_zone: "{{ icinga2_master_master_zone }}"
 # https://icinga.com/docs/icinga2/latest/doc/09-object-types/#user
 icinga2_master_users:
   - name: icingaadmin
-    email: 'alertme@example.com'
+    email: alertme@example.com
     groups:
       - icingaadmins
 # icinga2_master_users:
@@ -47,7 +47,7 @@ icinga2_master_users:
 # https://icinga.com/docs/icinga2/latest/doc/09-object-types/#usergroup
 icinga2_master_usergroups:
   - name: icingaadmins
-    displayname: 'Icinga2 Admins'
+    displayname: Icinga2 Admins
 # icinga2_master_usergroups:
 #   - name: groupname
 #     displayname: 'Group Name' # optional, defaults to an empty string
@@ -109,43 +109,43 @@ icinga2_master_timeperiods:
   - name: holidays
     display_name: Holidays
     ranges:
-      - day: "december 25"
-        time: 00:00-24:00
+      - day: december 25
+        time: "00:00-24:00"
   - name: premium
     display_name: SLA Premium
     ranges:
       - day: monday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: tuesday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: wednesday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: thursday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: friday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: saturday
-        time: 00:00-24:00
+        time: "00:00-24:00"
       - day: sunday
-        time: 00:00-24:00
+        time: "00:00-24:00"
   - name: standard
     display_name: SLA Standard
     ranges:
       - day: monday
-        time: 08:00-18:00
+        time: "08:00-18:00"
       - day: tuesday
-        time: 08:00-18:00
+        time: "08:00-18:00"
       - day: wednesday
-        time: 08:00-18:00
+        time: "08:00-18:00"
       - day: thursday
-        time: 08:00-18:00
+        time: "08:00-18:00"
       - day: friday
-        time: 08:00-18:00
+        time: "08:00-18:00"
     excludes:
       - holidays
 
 # Enable the graphite writer feature
-icinga2_master_graphite_enabled: False
+icinga2_master_graphite_enabled: false
 
 # The Host graphite is running on
 icinga2_master_graphite_host: 127.0.0.1
@@ -156,7 +156,7 @@ icinga2_master_graphite_port: 2003
 ## Icinga2 ido database settings
 
 # Enable ido feature
-icinga2_master_ido_enabled: False
+icinga2_master_ido_enabled: false
 
 # icinga2 database name
 icinga2_master_icinga2_database_name: icinga2
@@ -171,39 +171,38 @@ icinga2_master_icinga2_database_port: 3306
 icinga2_master_icinga2_database_user: icinga2
 
 # icinga2 database password
-icinga2_master_icinga2_database_pass: 'passw0rd'
+icinga2_master_icinga2_database_pass: passw0rd
 
 # if the database connection uses ssl or not (true or false)
 icinga2_master_icinga2_database_ssl: false
 
 # the hostpattern which can access and login with the icinga2 user
-icinga2_master_icinga2_database_hostpattern: 'localhost'
+icinga2_master_icinga2_database_hostpattern: localhost
 
 # icinga2 database root user
-icinga2_master_db_root_user: "user"
+icinga2_master_db_root_user: user
 
 # icinga2 database root password
-icinga2_master_db_root_pass: "passw0rd"
-
+icinga2_master_db_root_pass: passw0rd
 
 ## Template settings
 
 # If you have own templates for the configuration files in /etc/icinga2/conf.d
 # consider adjusting the names here and add your template to
 # templates/etc/icinga2/conf.d in the root of your playbook folder.
-icinga2_master_template_confd_apiusers: "api-users.conf"
-icinga2_master_template_confd_notifications: "notifications.conf"
-icinga2_master_template_confd_templates: "templates.conf"
-icinga2_master_template_confd_commands: "commands.conf"
-icinga2_master_template_confd_groups: "groups.conf"
-icinga2_master_template_confd_timeperiods: "timeperiods.conf"
-icinga2_master_template_confd_users: "users.conf"
+icinga2_master_template_confd_apiusers: api-users.conf
+icinga2_master_template_confd_notifications: notifications.conf
+icinga2_master_template_confd_templates: templates.conf
+icinga2_master_template_confd_commands: commands.conf
+icinga2_master_template_confd_groups: groups.conf
+icinga2_master_template_confd_timeperiods: timeperiods.conf
+icinga2_master_template_confd_users: users.conf
 
 # These variables can be adjusted if you have custom templates for the global
 # templates directory which gets synced to all clients.
 icinga2_master_template_globaltemplates:
-  - "services.conf"
-  - "templates.conf"
+  - services.conf
+  - templates.conf
 
 # Global Zones to be added to zones.conf
 icinga2_master_global_zones:
@@ -226,7 +225,7 @@ icinga2_master_global_zones:
 # icinga2_master_twilio_auth_token: 'auth_token'
 
 # Whether twilio sms are enabled or not
-icinga2_master_twilio_sms_enabled: False
+icinga2_master_twilio_sms_enabled: false
 
 # The twilio phone numer used to send sms
 # icinga2_master_twilio_sms_from: '+41123456789'
@@ -235,14 +234,13 @@ icinga2_master_twilio_sms_enabled: False
 # Can be used to execute custom scripts after the SMS is sent
 # defaults to an empty list, add command lines as necessary
 # Example:
-#icinga2_master_twilio_sms_additional_commands:
+# icinga2_master_twilio_sms_additional_commands:
 #  # Execute a custom script after the sms has been sent to also send
 #  # the notification to mattermost
 #  - "/etc/icinga2/scripts/mattermost.sh "${NOTIFICATION_MESSAGE}""
 icinga2_master_twilio_sms_additional_commands: []
-
 # Whether twilio calls are enabled or not
-icinga2_master_twilio_phone_enabled: False
+icinga2_master_twilio_phone_enabled: false
 
 # The twilio phone number used to make calls
 # icinga2_master_twilio_phone_from: '+41123456789'

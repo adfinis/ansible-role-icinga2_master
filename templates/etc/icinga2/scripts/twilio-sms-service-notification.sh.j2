@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Adfinis SyGroup AG
-# https://github.com/adfinis-sygroup/ansible-role-icinga2_master
+# Adfinis AG
+# https://github.com/adfinis/ansible-role-icinga2_master
 #
 # This script trigger service SMS notifications using Twilio
 #
@@ -108,7 +108,7 @@ SUBJECT="[$NOTIFICATIONTYPE] $SERVICEDISPLAYNAME on $HOSTDISPLAYNAME is $SERVICE
 
 ## Build the notification message
 NOTIFICATION_MESSAGE=$(cat << EOF
-[$SERVICESTATE] $HOSTDISPLAYNAME: $SERVICEDISPLAYNAME 
+[$SERVICESTATE] $HOSTDISPLAYNAME: $SERVICEDISPLAYNAME
 $SERVICEOUTPUT
 EOF
 )
