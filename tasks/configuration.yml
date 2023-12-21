@@ -30,7 +30,7 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Install icinga2 constants configuration
   ansible.builtin.template:
@@ -43,7 +43,7 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Remove files from conf.d which are already defined in global-templates
   ansible.builtin.copy:
@@ -106,13 +106,13 @@
     - "{{ icinga2_master_template_confd_groups }}"
     - "{{ icinga2_master_template_confd_timeperiods }}"
     - "{{ icinga2_master_template_confd_users }}"
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Execute icinga2 api setup command
   ansible.builtin.command: icinga2 api setup
   args:
     creates: /var/lib/icinga2/ca/ca.crt
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Configure icinga2 api feature
   ansible.builtin.template:
@@ -144,7 +144,7 @@
     setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_graphite_enabled|bool
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Enable icinga2 graphite feature
   ansible.builtin.file:
@@ -152,7 +152,7 @@
     dest: /etc/icinga2/features-enabled/graphite.conf
     state: link
   when: icinga2_master_graphite_enabled|bool
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 # Global Icinga2 configuration
 - name: Ensure the global-templates directory is present
@@ -180,7 +180,7 @@
     setype: icinga2_etc_t
     selevel: s0
   loop: "{{ icinga2_master_template_globaltemplates }}"
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0]
 
 - name: Create global zones configuration
@@ -194,7 +194,7 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
 
 - name: Create zone configuration directory for each host
   ansible.builtin.file:
@@ -208,7 +208,7 @@
     setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_sat"] }}'
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: >
     inventory_hostname == icinga2_client_monitoring_parents[0]
     and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
@@ -225,7 +225,7 @@
     setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: >
     inventory_hostname == icinga2_client_monitoring_parents[0]
     and hostvars[item].inventory_hostname not in groups["monitoring_sat"]
@@ -243,7 +243,7 @@
     setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_client"] }}'
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: >
     inventory_hostname == icinga2_client_monitoring_parents[0]
     and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed)
@@ -260,7 +260,7 @@
     selevel: s0
     state: directory
   loop: '{{ groups["monitoring_master"] }}'
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0] and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed) # noqa: yaml[line-length]
 
 - name: Add our own host configuration
@@ -275,7 +275,7 @@
     setype: icinga2_etc_t
     selevel: s0
   loop: '{{ groups["monitoring_master"] }}'
-  notify: icinga2_master reload icinga2
+  notify: Icinga2_master reload icinga2
   when: inventory_hostname == icinga2_client_monitoring_parents[0] and not ('icinga2_client_director_managed' in hostvars[item] and hostvars[item].icinga2_client_director_managed) # noqa: yaml[line-length]
 
 - name: Ensure that icinga2 is started and enabled on boot
