@@ -4,7 +4,7 @@ icinga2_master_owner: nagios
 icinga2_master_group: nagios
 
 icinga2_master_ido_packages:
-  - python-mysqldb
+  - python3-mysqldb
   - icinga2-ido-mysql
   - default-mysql-client
 
