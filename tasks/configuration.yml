@@ -43,12 +43,14 @@
     name: icingadb-redis
     state: started
     enabled: true
+  when: icinga2_master_icingadb_enabled|bool
 
 - name: ensure that icingadb is started and enabled on boot
   service:
     name: icingadb
     state: started
     enabled: true
+  when: icinga2_master_icingadb_enabled|bool
 
 - name: enable icingadb feature
   file:
