@@ -8,4 +8,9 @@ icinga2_master_ido_packages:
   - icinga2-ido-mysql
   - default-mysql-client
 
+
+icinga2_master_icingadb_packages:
+  - "icingadb"
+  - "icingadb-redis"
+
 icinga2_master_ca_path: /etc/ssl/certs/ca-certificates.crt
