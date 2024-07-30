@@ -37,7 +37,7 @@
   when: icinga2_master_icingadb_enabled|bool
   check_mode: false
 
- name: import icingadb database schema using the root user
+- name: import icingadb database schema using the root user
   mysql_db:
     name: '{{ icinga2_master_icinga2_database_name }}'
     login_host: '{{ icinga2_master_icinga2_database_host }}'
