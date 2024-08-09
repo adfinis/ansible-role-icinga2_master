@@ -14,6 +14,6 @@ object IdoMysqlConnection "ido-mysql" {
   host = "{{ icinga2_master_icinga2_database_host }}"
   database = "{{ icinga2_master_icinga2_database_name }}"
   {% if icinga2_master_icinga2_database_ssl -%}
-  enable_ssl = true
+  enable_ssl = "{{ icinga2_master_icinga2_database_ssl }}"
   {% endif %}
 }

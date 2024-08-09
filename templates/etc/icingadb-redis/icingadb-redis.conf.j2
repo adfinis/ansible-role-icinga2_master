@@ -108,7 +108,7 @@ bind 0.0.0.0 ::
 # By default protected mode is enabled. You should disable it only if
 # you are sure you want clients from other hosts to connect to Redis
 # even if no authentication is configured.
-protected-mode yes
+protected-mode no
 
 # Redis uses default hardened security configuration directives to reduce the
 # attack surface on innocent users. Therefore, several sensitive configuration
@@ -1033,7 +1033,7 @@ acllog-max-len 128
 # The requirepass is not compatible with aclfile option and the ACL LOAD
 # command, these will cause requirepass to be ignored.
 #
-requirepass {{ icinga2_master_redis_password }}
+requirepass "{{ icinga2_master_redis_password }}"
 
 # New users are initialized with restrictive permissions by default, via the
 # equivalent of this ACL rule 'off resetkeys -@all'. Starting with Redis 6.2, it

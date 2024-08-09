@@ -13,7 +13,7 @@ database:
 
   # Database host or absolute Unix socket path.
   host: {{ icinga2_master_icinga2_database_host }}
-  tls: true
+  tls: {{ icinga2_master_icingadb_database_ssl }}
   ca: {{ icinga2_master_ca_path }}
   # Database port. By default, the MySQL or PostgreSQL port, depending on the database type.
   port: 3306
@@ -25,7 +25,7 @@ database:
   user: {{ icinga2_master_icingadb_user }}
 
   # Database password.
-  password: {{ icinga2_master_icingadb_password }}
+  password: {{ icinga2_master_icingadb_database_pass }}
 
 # Connection configuration for the Redis server where Icinga 2 writes its configuration, state and history items.
 # This is the same connection as configured in the 'icingadb' feature of the corresponding Icinga 2 node.
