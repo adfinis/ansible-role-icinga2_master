@@ -9,7 +9,7 @@ icinga2_master_ido_packages:
   - mysql
 
 icinga2_master_icingadb_packages:
-  - "icingadb"
-  - "icingadb-redis"
+  - icingadb
+  - icingadb-redis
 
 icinga2_master_ca_path: /etc/ssl/certs/ca-bundle.crt

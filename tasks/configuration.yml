@@ -1,59 +1,59 @@
 ---
-- name: configure icingadb feature
+- name: Configure icingadb feature
   ansible.builtin.template:
     src: etc/icinga2/features-available/icingadb.conf.j2
     dest: /etc/icinga2/features-available/icingadb.conf
     owner: "{{ icinga2_master_owner }}"
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_icingadb_enabled|bool
 
-- name: configure icingadb
+- name: Configure icingadb
   ansible.builtin.template:
     src: etc/icingadb/config.yml.j2
     dest: /etc/icingadb/config.yml
-    owner: "icingadb"
+    owner: icingadb
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_icingadb_enabled|bool
 
-- name: configure icingadb-redis
+- name: Configure icingadb-redis
   ansible.builtin.template:
     src: etc/icingadb-redis/icingadb-redis.conf.j2
     dest: /etc/icingadb-redis/icingadb-redis.conf
-    owner: "icingadb-redis"
+    owner: icingadb-redis
     group: "{{ icinga2_master_group }}"
-    mode: 0640
+    mode: "0640"
     seuser: system_u
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
   when: icinga2_master_icingadb_enabled|bool
 
-- name: ensure that icingadb-redis is started and enabled on boot
+- name: Ensure that icingadb-redis is started and enabled on boot
   ansible.builtin.service:
     name: icingadb-redis
     state: started
     enabled: true
   when: icinga2_master_icingadb_enabled|bool
 
-- name: ensure that icingadb is started and enabled on boot
+- name: Ensure that icingadb is started and enabled on boot
   ansible.builtin.service:
     name: icingadb
     state: started
     enabled: true
   when: icinga2_master_icingadb_enabled|bool
 
-- name: enable icingadb feature
-  file:
+- name: Enable icingadb feature
+  ansible.builtin.file:
     src: /etc/icinga2/features-available/icingadb.conf
     dest: /etc/icinga2/features-enabled/icingadb.conf
     state: link
