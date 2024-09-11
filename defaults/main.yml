@@ -227,7 +227,7 @@ icinga2_master_global_zones:
 
 
 # Plugin directory for nagios plugins
-icinga2_master_nagios_plugin_dir: /usr/lib/nagios/plugins#
+icinga2_master_nagios_plugin_dir: /usr/lib/nagios/plugins
 
 ## Global alerting settings
 
