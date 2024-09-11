@@ -1,6 +1,6 @@
 ---
 - name: configure icingadb feature
-  template:
+  ansible.builtin.template:
     src: etc/icinga2/features-available/icingadb.conf.j2
     dest: /etc/icinga2/features-available/icingadb.conf
     owner: "{{ icinga2_master_owner }}"
@@ -13,7 +13,7 @@
   when: icinga2_master_icingadb_enabled|bool
 
 - name: configure icingadb
-  template:
+  ansible.builtin.template:
     src: etc/icingadb/config.yml.j2
     dest: /etc/icingadb/config.yml
     owner: "icingadb"
@@ -26,7 +26,7 @@
   when: icinga2_master_icingadb_enabled|bool
 
 - name: configure icingadb-redis
-  template:
+  ansible.builtin.template:
     src: etc/icingadb-redis/icingadb-redis.conf.j2
     dest: /etc/icingadb-redis/icingadb-redis.conf
     owner: "icingadb-redis"
@@ -39,14 +39,14 @@
   when: icinga2_master_icingadb_enabled|bool
 
 - name: ensure that icingadb-redis is started and enabled on boot
-  service:
+  ansible.builtin.service:
     name: icingadb-redis
-    state: restarted
+    state: started
     enabled: true
   when: icinga2_master_icingadb_enabled|bool
 
 - name: ensure that icingadb is started and enabled on boot
-  service:
+  ansible.builtin.service:
     name: icingadb
     state: started
     enabled: true
