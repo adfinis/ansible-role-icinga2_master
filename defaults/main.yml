@@ -225,6 +225,10 @@ icinga2_master_template_globaltemplates:
 icinga2_master_global_zones:
   - global-templates
 
+
+# Plugin directory for nagios plugins
+icinga2_master_nagios_plugin_dir: /usr/lib/nagios/plugins#
+
 ## Global alerting settings
 
 # The URL from icingaweb2. Will be attached to the alerts
