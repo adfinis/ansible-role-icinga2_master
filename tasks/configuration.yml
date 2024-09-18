@@ -36,12 +36,12 @@
     serole: object_r
     setype: icinga2_etc_t
     selevel: s0
+  notify: Restart icingadb-redis
   when: icinga2_master_icingadb_enabled|bool
 
-- name: Ensure that icingadb-redis is started and enabled on boot
+- name: Ensure that icingadb-redis is enabled on boot
   ansible.builtin.service:
     name: icingadb-redis
-    state: started
     enabled: true
   when: icinga2_master_icingadb_enabled|bool
 
