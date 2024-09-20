@@ -7,4 +7,4 @@
 - name: Restart icingadb-redis
   ansible.builtin.service:
     name: icingadb-redis
-    state: started
+    state: restarted
