@@ -1,4 +1,8 @@
 ---
+- name: Ensure only one out of IcingaDB or IDO is enabled
+  ansible.builtin.assert:
+    that: "icinga2_master_icingadb_enabled != icinga2_master_ido_enabled"
+
 - name: Configure icingadb feature
   ansible.builtin.template:
     src: etc/icinga2/features-available/icingadb.conf.j2
