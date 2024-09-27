@@ -110,37 +110,37 @@ icinga2_master_timeperiods:
     display_name: Holidays
     ranges:
       - day: december 25
-        time: "00:00-24:00"
+        time: 00:00-24:00
   - name: premium
     display_name: SLA Premium
     ranges:
       - day: monday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: tuesday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: wednesday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: thursday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: friday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: saturday
-        time: "00:00-24:00"
+        time: 00:00-24:00
       - day: sunday
-        time: "00:00-24:00"
+        time: 00:00-24:00
   - name: standard
     display_name: SLA Standard
     ranges:
       - day: monday
-        time: "08:00-18:00"
+        time: 08:00-18:00
       - day: tuesday
-        time: "08:00-18:00"
+        time: 08:00-18:00
       - day: wednesday
-        time: "08:00-18:00"
+        time: 08:00-18:00
       - day: thursday
-        time: "08:00-18:00"
+        time: 08:00-18:00
       - day: friday
-        time: "08:00-18:00"
+        time: 08:00-18:00
     excludes:
       - holidays
 
@@ -153,14 +153,31 @@ icinga2_master_graphite_host: 127.0.0.1
 # The port graphite is listening on
 icinga2_master_graphite_port: 2003
 
-## Icinga2 ido database settings
+## Icinga2db settings (DO NOT USE ICINGADB AND IDO AT THE SAME TIME)
 
-# Enable ido feature
+# Enable icingadb feature
+icinga2_master_icingadb_enabled: false
+
+# Icingadb database user
+icinga2_master_icingadb_user: icingadb
+
+# Database user's password
+icinga2_master_icingadb_password: passw0rd
+
+# Database name for icingadb
+icinga2_master_icingadb_database: icingadb
+
+# Enable ido feature (deprecated)
 icinga2_master_ido_enabled: false
+
+# redis default password, please change
+icinga2_master_redis_password: sheag6oghoo0ohXa1Ito
+
+# Icinga2 database settings
 
 # icinga2 database name
 icinga2_master_icinga2_database_name: icinga2
-#
+
 # icinga2 database host
 icinga2_master_icinga2_database_host: 127.0.0.1
 
@@ -207,6 +224,10 @@ icinga2_master_template_globaltemplates:
 # Global Zones to be added to zones.conf
 icinga2_master_global_zones:
   - global-templates
+
+
+# Plugin directory for nagios plugins
+icinga2_master_nagios_plugin_dir: /usr/lib/nagios/plugins
 
 ## Global alerting settings
 

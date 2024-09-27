@@ -59,6 +59,9 @@ icinga2_master_template_confd_users: "users.conf"
 icinga2_master_template_globaltemplates:
   - "services.conf"
   - "templates.conf"
+
+# If the nagios plugin directory differs, you can also change it:
+icinga2_master_nagios_plugin_dir: /usr/lib/nagios/plugins
 ```
 
 If you want to use [Twilio](https://www.twilio.com) for the alerting,
