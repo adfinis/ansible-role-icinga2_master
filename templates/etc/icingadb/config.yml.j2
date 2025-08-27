@@ -76,7 +76,7 @@ logging:
 
 # Retention is an optional feature to limit the number of days that historical data is available,
 # as no historical data is deleted by default.
-retention:
+#retention:
   # Number of days to retain full historical data. By default, historical data is retained forever.
 #  history-days:
 
@@ -86,7 +86,7 @@ retention:
   # Map of history category to number of days to retain its data in order to
   # enable retention only for specific categories or to
   # override the number that has been configured in history-days.
-  options:
+#  options:
 #    acknowledgement:
 #    comment:
 #    downtime:
@@ -94,3 +94,15 @@ retention:
 #    notification:
 #    state:
 
+retention:
+  history-days: {{ icinga2_master_icinga2_retention_history_days }}
+  sla-days: {{ icinga2_master_icinga2_retention_sla_days }}
+  count: {{ icinga2_master_icinga2_retention_count }}
+  interval: {{ icinga2_master_icinga2_retention_interval }}
+  options:
+    acknowledgement: {{ icinga2_master_icinga2_retention_acknowledgement }}
+    comment: {{ icinga2_master_icinga2_retention_comment }}
+    downtime: {{ icinga2_master_icinga2_retention_downtime }}
+    flapping: {{ icinga2_master_icinga2_retention_flapping }}
+    notification: {{ icinga2_master_icinga2_retention_notification }}
+    state: {{ icinga2_master_icinga2_retention_state }}
