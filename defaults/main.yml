@@ -203,10 +203,10 @@ icinga2_master_db_root_user: user
 icinga2_master_db_root_pass: passw0rd
 
 # Number of days to retain full historical data. By default, historical data is retained forever
-icinga2_master_icinga2_retention_history_days:
+# icinga2_master_icinga2_retention_history_days:
 
 # Number of days to retain historical data for SLA reporting. By default, it is retained forever.
-icinga2_master_icinga2_retention_sla_days:
+# icinga2_master_icinga2_retention_sla_days:
 
 # Number of old historical entries a single query can delete in a "DELETE FROM ... LIMIT count" manner. By default, this is limited to 5000 entries.
 icinga2_master_icinga2_retention_count: 5000
@@ -220,12 +220,12 @@ icinga2_master_icinga2_retention_interval: 1h
 # Map of history category to number of days to retain its data in order to
 # enable retention only for specific categories or to
 # override the number that has been configured in history-days.
-icinga2_master_icinga2_retention_acknowledgement: ""
-icinga2_master_icinga2_retention_comment: ""
-icinga2_master_icinga2_retention_downtime: ""
-icinga2_master_icinga2_retention_flapping: ""
-icinga2_master_icinga2_retention_notification: ""
-icinga2_master_icinga2_retention_state: ""
+# icinga2_master_icinga2_retention_acknowledgement:
+# icinga2_master_icinga2_retention_comment:
+# icinga2_master_icinga2_retention_downtime:
+# icinga2_master_icinga2_retention_flapping:
+# icinga2_master_icinga2_retention_notification:
+# icinga2_master_icinga2_retention_state:
 
 
 ## Template settings
