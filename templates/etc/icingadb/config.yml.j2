@@ -73,24 +73,52 @@ logging:
 #    retention:
 #    runtime-updates:
 #    telemetry:
-
 # Retention is an optional feature to limit the number of days that historical data is available,
 # as no historical data is deleted by default.
+
 retention:
+{% if icinga2_master_icinga2_retention_history_days is defined %}
   # Number of days to retain full historical data. By default, historical data is retained forever.
-#  history-days:
-
+  history-days: {{ icinga2_master_icinga2_retention_history_days }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_sla_days is defined %}
   # Number of days to retain historical data for SLA reporting. By default, it is retained forever.
-#  sla-days:
-
+  sla-days: {{ icinga2_master_icinga2_retention_sla_days }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_count is defined %}
+  # Number of entries to be removed in one retention swoop.
+  count: {{ icinga2_master_icinga2_retention_count }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_interval is defined %}
+  # Interval between two retention runs.
+  interval: {{ icinga2_master_icinga2_retention_interval }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_acknowledgement is defined or
+     icinga2_master_icinga2_retention_comment is defined or
+     icinga2_master_icinga2_retention_downtime is defined or
+     icinga2_master_icinga2_retention_flapping is defined or
+     icinga2_master_icinga2_retention_notification is defined or
+     icinga2_master_icinga2_retention_state is defined %}
   # Map of history category to number of days to retain its data in order to
   # enable retention only for specific categories or to
   # override the number that has been configured in history-days.
   options:
-#    acknowledgement:
-#    comment:
-#    downtime:
-#    flapping:
-#    notification:
-#    state:
-
+{% if icinga2_master_icinga2_retention_acknowledgement is defined %}
+    acknowledgement: {{ icinga2_master_icinga2_retention_acknowledgement }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_comment is defined %}
+    comment: {{ icinga2_master_icinga2_retention_comment }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_downtime is defined %}
+    downtime: {{ icinga2_master_icinga2_retention_downtime }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_flapping is defined %}
+    flapping: {{ icinga2_master_icinga2_retention_flapping }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_notification is defined %}
+    notification: {{ icinga2_master_icinga2_retention_notification }}
+{% endif %}
+{% if icinga2_master_icinga2_retention_state is defined %}
+    state: {{ icinga2_master_icinga2_retention_state }}
+{% endif %}
+{% endif %}
