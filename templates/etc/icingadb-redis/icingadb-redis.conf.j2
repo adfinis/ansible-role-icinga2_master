@@ -1118,6 +1118,10 @@ requirepass "{{ icinga2_master_redis_password }}"
 #
 # maxmemory <bytes>
 
+{% if icinga2_master_redis_maxmemory is defined %}
+  maxmemory {{ icinga2_master_redis_maxmemory }}
+{% endif %}
+
 # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
 # is reached. You can select one from the following behaviors:
 #
@@ -1146,6 +1150,10 @@ requirepass "{{ icinga2_master_redis_password }}"
 # The default is:
 #
 # maxmemory-policy noeviction
+
+{% if icinga2_master_redis_maxmemory_policy is defined%}
+  maxmemory-policy {{ icinga2_master_redis_maxmemory_policy }}
+{% endif %}
 
 # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can tune it for speed or
