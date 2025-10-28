@@ -173,6 +173,12 @@ icinga2_master_ido_enabled: false
 # redis default password, please change
 icinga2_master_redis_password: sheag6oghoo0ohXa1Ito
 
+# Max memory that icingadb-redis can use (use eg. 1g, 100mb, ...)
+# icinga2_master_redis_maxmemory: 1g
+
+# Set how redis should handle eviction if memory is full
+# icinga2_master_redis_maxmemory_policy: volatile-lru
+
 # Icinga2 database settings
 
 # icinga2 database name
