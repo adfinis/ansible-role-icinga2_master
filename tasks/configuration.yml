@@ -49,6 +49,16 @@
     enabled: true
   when: icinga2_master_icingadb_enabled|bool
 
+- name: Ensure that memory overcommit is enabled on linux
+  ansible.builtin.template:
+    src: /etc/sysctl.d/icingadb-redis.conf.j2
+    dest: /etc/sysctl.d/icingadb-redis.conf
+    owner: root
+    group: root
+    mode: '755'
+  when: icinga2_master_icingadb_enabled|bool
+  notify: reload sysctl
+
 - name: Ensure that icingadb is started and enabled on boot
   ansible.builtin.service:
     name: icingadb
