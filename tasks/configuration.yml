@@ -57,7 +57,7 @@
     group: root
     mode: '755'
   when: icinga2_master_icingadb_enabled|bool
-  notify: reload sysctl
+  notify: Reload sysctl
 
 - name: Ensure that icingadb is started and enabled on boot
   ansible.builtin.service:

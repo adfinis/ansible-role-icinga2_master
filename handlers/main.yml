@@ -9,5 +9,6 @@
     name: icingadb-redis
     state: restarted
 
-- name: reload sysctl
-  shell: /sbin/sysctl -p --system
+- name: Reload sysctl
+  ansible.builtin.command:
+    cmd: /sbin/sysctl -p --system
