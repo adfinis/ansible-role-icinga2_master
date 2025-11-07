@@ -8,3 +8,7 @@
   ansible.builtin.service:
     name: icingadb-redis
     state: restarted
+
+- name: Reload sysctl # noqa: no-changed-when
+  ansible.builtin.command:
+    cmd: /sbin/sysctl -p --system
