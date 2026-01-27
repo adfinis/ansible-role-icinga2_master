@@ -55,7 +55,7 @@
     dest: /etc/sysctl.d/icingadb-redis.conf
     owner: root
     group: root
-    mode: '755'
+    mode: "755"
   when: icinga2_master_icingadb_enabled|bool
   notify: Reload sysctl
 
@@ -181,6 +181,7 @@
     - "{{ icinga2_master_template_confd_timeperiods }}"
     - "{{ icinga2_master_template_confd_users }}"
   notify: Icinga2_master reload icinga2
+  tags: [role::icinga2_master:config:conf.d]
 
 - name: Execute icinga2 api setup command
   ansible.builtin.command: icinga2 api setup
