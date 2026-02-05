@@ -51,7 +51,7 @@
 
 - name: Ensure that memory overcommit is enabled on linux
   ansible.builtin.template:
-    src: /etc/sysctl.d/icingadb-redis.conf.j2
+    src: etc/sysctl.d/icingadb-redis.conf.j2
     dest: /etc/sysctl.d/icingadb-redis.conf
     owner: root
     group: root
