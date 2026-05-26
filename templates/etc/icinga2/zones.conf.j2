@@ -42,7 +42,7 @@ object Endpoint "{{ item }}" {
 object Zone "{{ item }}" {
   endpoints = [ "{{ item }}" ]
 
-  parent = "{{ icinga2_master_client_parent_zone }}"
+  parent = "{{ hostvars[item].icinga2_master_client_parent_zone | default(icinga2_master_client_parent_zone) }}"
 }
 {% endfor %}
 {% else %}
