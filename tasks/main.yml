@@ -1,4 +1,13 @@
 ---
+- name: Warn about deprecation in favor of the adfinis.icinga2 collection
+  ansible.builtin.debug:
+    msg: >-
+      DEPRECATION WARNING: The standalone role adfinis.icinga2_master has been migrated to the
+      adfinis.icinga2 collection and will no longer receive updates. Please switch to
+      adfinis.icinga2.icinga2_master (https://github.com/adfinis/ansible-collection-icinga2).
+  tags:
+    - always
+
 - name: Include os specific vars
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
